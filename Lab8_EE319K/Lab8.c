@@ -14,6 +14,8 @@
 #include "ADC.h"
 #include "tm4c123gh6pm.h"
 
+unsigned long ADCMail;
+unsigned char ADCStatus;
 
 void DisableInterrupts(void); // Disable interrupts
 void EnableInterrupts(void);  // Enable interrupts
@@ -22,9 +24,7 @@ void EndCritical(long sr);    // restore I bit to previous value
 void WaitForInterrupt(void);  // low power mode
 int main2();
 int main3();
-#define PF1       (*((volatile unsigned long *)0x40025008))
-#define PF2       (*((volatile unsigned long *)0x40025010))
-#define PF3       (*((volatile unsigned long *)0x40025020))
+
 void PortF_Init(void){
 	unsigned long volatile delay;
 	SYSCTL_RCGC2_R |= 0x20;
@@ -44,8 +44,7 @@ int main2(void){      // single step this program and look at Data
 	//return main2();
 }
 
-int main(void){
-
+int main4(void){
 	PLL_Init();         // Bus clock is 80 MHz 
 	ADC_Init();         // turn on ADC, set channel to 1
 	LCD_Init();   
@@ -62,7 +61,7 @@ int main(void){
 }
 
 unsigned long Convert(unsigned long input){
-	return 0;
+	return input;
 }
 int main3(void){ 
 	PLL_Init();        // Bus clock is 80 MHz 
@@ -80,3 +79,16 @@ int main3(void){
 	}
 }   
 
+int main(){
+	PLL_Init();        // Bus clock is 80 MHz 
+	LCD_Init();   
+	LCD_SetTextColorRGB(YELLOW);
+	PortF_Init();
+	ADC_Init();        // turn on ADC, set channel to 1
+	while(1){  
+		Position = Convert(ADCMail); 
+		LCD_Goto(0,0);
+		LCD_OutDec(Data); LCD_OutString("    "); 
+		LCD_OutFix(Position);
+	}
+}

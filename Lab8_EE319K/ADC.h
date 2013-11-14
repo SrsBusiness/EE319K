@@ -6,6 +6,12 @@
 // Put your name here or look very silly
 // Put the date here or look very silly
 
+#define PF1       (*((volatile unsigned long *)0x40025008))
+#define PF2       (*((volatile unsigned long *)0x40025010))
+#define PF3       (*((volatile unsigned long *)0x40025020))
+
+extern unsigned long ADCMail;
+extern unsigned char ADCStatus;
 
 
 // This initialization function 
