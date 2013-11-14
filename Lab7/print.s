@@ -136,10 +136,7 @@ LCD_OutFix
 		LDR		R0, [SP, #step1]
 		BL		LCD_OutChar
 		ADD	SP, #16
-		B done
-		
-		
-		
+		B done	
 		
 GREATER	
 		MOV R0, #'*'

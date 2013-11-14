@@ -1,0 +1,16 @@
+Dependencies for Project 'Lab8', Target 'Lab8': (DO NOT MODIFY !)
+F (.\startup.s)(0x528457C2)(--cpu Cortex-M4 --pd "__EVAL SETA 1" -g --apcs=interwork -I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary--list .\startup.lst --xref -o .\startup.o --depend .\startup.d)
+F (.\PLL.c)(0x5263F3D6)(-c --cpu Cortex-M4 -D__EVAL -g -O0 --apcs=interwork --split_sections -I.. -I..\..\..-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary-Drvmdk -DPART_LM4F120H5QR -o .\pll.o --omf_browse .\pll.crf --depend .\pll.d)
+I (C:\Users\megan\Documents\GitHub\EE319K\Lab8_EE319K\PLL.h)(0x5263F3D6)
+F (.\ADC.c)(0x52845ABE)(-c --cpu Cortex-M4 -D__EVAL -g -O0 --apcs=interwork --split_sections -I.. -I..\..\..-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary-Drvmdk -DPART_LM4F120H5QR -o .\adc.o --omf_browse .\adc.crf --depend .\adc.d)
+I (C:\Users\megan\Documents\GitHub\EE319K\Lab8_EE319K\tm4c123gh6pm.h)(0x51D4A8F2)
+F (.\SSD2119.c)(0x5219575C)(-c --cpu Cortex-M4 -D__EVAL -g -O0 --apcs=interwork --split_sections -I.. -I..\..\..-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary-Drvmdk -DPART_LM4F120H5QR -o .\ssd2119.o --omf_browse .\ssd2119.crf --depend .\ssd2119.d)
+I (C:\Users\megan\Documents\GitHub\EE319K\Lab8_EE319K\LCD.h)(0x526B1D6A)
+F (.\Print.s)(0x528457C2)(--cpu Cortex-M4 --pd "__EVAL SETA 1" -g --apcs=interwork -I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary--list .\print.lst --xref -o .\print.o --depend .\print.d)
+F (.\Lab8.c)(0x528457C2)(-c --cpu Cortex-M4 -D__EVAL -g -O0 --apcs=interwork --split_sections -I.. -I..\..\..-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary-Drvmdk -DPART_LM4F120H5QR -o .\lab8.o --omf_browse .\lab8.crf --depend .\lab8.d)
+I (C:\Users\megan\Documents\GitHub\EE319K\Lab8_EE319K\lcd.h)(0x526B1D6A)
+I (C:\Users\megan\Documents\GitHub\EE319K\Lab8_EE319K\pll.h)(0x5263F3D6)
+I (C:\Users\megan\Documents\GitHub\EE319K\Lab8_EE319K\ADC.h)(0x526D60F0)
+I (C:\Users\megan\Documents\GitHub\EE319K\Lab8_EE319K\tm4c123gh6pm.h)(0x51D4A8F2)
+F (.\tm4c123gh6pm.h)(0x51D4A8F2)()
+F (.\LCD.s)(0x52844ACE)(--cpu Cortex-M4 --pd "__EVAL SETA 1" -g --apcs=interwork -I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary--list .\lcd.lst --xref -o .\lcd.o --depend .\lcd.d)
