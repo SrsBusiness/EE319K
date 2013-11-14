@@ -61,7 +61,7 @@ int main4(void){
 }
 
 unsigned long Convert(unsigned long input){
-	return input;
+	return 2 * input / 5;
 }
 int main3(void){ 
 	PLL_Init();        // Bus clock is 80 MHz 
@@ -72,10 +72,7 @@ int main3(void){
 	while(1){  
 		PF2 ^= 0x04;     // Heartbeat
 		Data = ADC_In(); // sample 12-bit channel 1
-		Position = Convert(Data); 
-		LCD_Goto(0,0);
-		LCD_OutDec(Data); LCD_OutString("    "); 
-		LCD_OutFix(Position);
+		PF2 ^= 0x04;
 	}
 }   
 
@@ -88,7 +85,8 @@ int main(){
 	while(1){  
 		Position = Convert(ADCMail); 
 		LCD_Goto(0,0);
-		LCD_OutDec(Data); LCD_OutString("    "); 
+		LCD_OutString("Position: "); 
 		LCD_OutFix(Position);
+		LCD_OutString(" cm");
 	}
 }

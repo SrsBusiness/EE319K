@@ -64,7 +64,7 @@ unsigned long ADC_In(void){
 
 void SysTick_Init(){
 	NVIC_ST_CTRL_R = 0;
-	NVIC_ST_RELOAD_R = 1999999;
+	NVIC_ST_RELOAD_R = 0x1E8479;
 	NVIC_ST_CURRENT_R = 0;
 	NVIC_ST_CTRL_R = 7;
 }
