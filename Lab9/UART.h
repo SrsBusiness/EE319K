@@ -1,4 +1,4 @@
-#define UART1_DR_R              (*((volatile unsigned long *)0x4000D000))
+ #define UART1_DR_R              (*((volatile unsigned long *)0x4000D000))
  #define UART1_RSR_R             (*((volatile unsigned long *)0x4000D004))
  #define UART1_ECR_R             (*((volatile unsigned long *)0x4000D004))
  #define UART1_FR_R              (*((volatile unsigned long *)0x4000D018))
@@ -44,22 +44,27 @@
  #define GPIO_PORTC_ADCCTL_R     (*((volatile unsigned long *)0x40006530))
  #define GPIO_PORTC_DMACTL_R     (*((volatile unsigned long *)0x40006534))
  
+ // standard ASCII symbols
+#define CR   0x0D
+#define LF   0x0A
+#define BS   0x08
+#define ESC  0x1B
+#define SP   0x20
+#define DEL  0x7F
  
- void UART_Init(void){
-  SYSCTL_RCGC1_R |= SYSCTL_RCGC1_UART1; // activate UART1
-  SYSCTL_RCGC2_R |= SYSCTL_RCGC2_GPIOC; // activate port C
-  UART0_CTL_R &= ~UART_CTL_UARTEN;      // disable UART
-  UART0_IBRD_R = 50;                    // IBRD = int(80,000,000 / (16 * 100,000)) = int(50)
-  UART0_FBRD_R = 0;                     // FBRD = int(0 * 64 ) = 0
-                                        // 8 bit word length (no parity bits, one stop bit, FIFOs)
-  UART0_LCRH_R = (UART_LCRH_WLEN_8|UART_LCRH_FEN);
-  UART0_CTL_R |= UART_CTL_UARTEN;       // enable UART
-  GPIO_PORTA_AFSEL_R |= 0x03;           // enable alt funct on PC1-0
-  GPIO_PORTC_DEN_R |= 0x03;             // enable digital I/O on PC1-0
-                                        // configure PC1-0 as UART
-  GPIO_PORTC_PCTL_R = (GPIO_PORTC_PCTL_R&0xFFFFFF00)+0x00000011;
-  GPIO_PORTC_AMSEL_R &= ~0x03;          // disable analog functionality on PC
-}
-
+//------------UART1_Init------------
+// Initialize the UART for 100,000 baud rate (assuming 80 MHz clock),
+// 8 bit word length, no parity bits, one stop bit, FIFOs enabled
+// Input: none
+// Output: none
+void UART_Init(void);
+ 
+ //------------UART1_OutChar------------
+// Output 8-bit to serial port
+// Input: letter is an 8-bit ASCII character to be transferred
+// Output: none
+void UART_OutChar(unsigned char data);
+ 
+ 
 
 
