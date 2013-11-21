@@ -46,5 +46,14 @@ int main_tx(){
 	while(1);
 }
 int main_rx() {
+	PLL_Init();        // Bus clock is 80 MHz 
+	ADC_Init();        // turn on ADC, set channel to 1
+	UART1_Init ();
+	UART1_enable_int();
+	LCD_Init();
+	LCD_SetTextColorRGB(GREEN);
+	while(0){
+		
+	}
 	return 0;
 }

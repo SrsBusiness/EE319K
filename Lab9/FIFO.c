@@ -1,5 +1,3 @@
-
-
 unsigned char data[16];
 int put = 15;
 int get = 15;

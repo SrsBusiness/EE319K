@@ -58,12 +58,14 @@
 // Input: none
 // Output: none
 void UART1_Init(void);
- 
+void UART1_enable_int(); 
  //------------UART1_OutChar------------
 // Output 8-bit to serial port
 // Input: letter is an 8-bit ASCII character to be transferred
 // Output: none
 void UART1_OutChar(unsigned char data);
+unsigned char UART1_InChar();
+
  
  
 
