@@ -14,6 +14,7 @@
 #include "ADC.h"
 #include "tm4c123gh6pm.h"
 #include "UART.h"
+#include "FIFO.h"
 
 unsigned long ADCMail;
 unsigned char ADCStatus;
@@ -25,9 +26,7 @@ void EndCritical(long sr);    // restore I bit to previous value
 void WaitForInterrupt(void);  // low power mode
 //int main2();
 //int main3();
-int main(){
-	return 0;
-}
+
 void PortF_Init(void){
 	unsigned long volatile delay;
 	SYSCTL_RCGC2_R |= 0x20;
@@ -39,21 +38,32 @@ void PortF_Init(void){
 unsigned long Data;      // 12-bit ADC
 unsigned long Position;  // 32-bit fixed-point 0.001 cm
 
-int main_tx(){
-	PLL_Init();        // Bus clock is 80 MHz 
+int main_tx	(){
+	PLL_Init();	// Bus clock is 80 MHz
+	PortF_Init();
 	ADC_Init();        // turn on ADC, set channel to 1
 	UART1_Init (); 
 	while(1);
 }
-int main_rx() {
+int main(){	
 	PLL_Init();        // Bus clock is 80 MHz 
-	ADC_Init();        // turn on ADC, set channel to 1
+	PortF_Init();       // turn on ADC, set channel to 1
 	UART1_Init ();
-	UART1_enable_int();
 	LCD_Init();
 	LCD_SetTextColorRGB(GREEN);
-	while(0){
-		
+	while(1){
+		int i, j;
+		LCD_Goto(0, 0);
+		//`LCD_OutChar('.');
+		if(FIFO_is_empty()){
+			continue;
+		}
+		while(FIFO_get() != 0x02);
+		for(i = 0; i < 5; i++){
+			LCD_OutChar(j = FIFO_get());
+		}
+		LCD_OutString("cm");
+		FIFO_get();
+		FIFO_get();
 	}
-	return 0;
 }

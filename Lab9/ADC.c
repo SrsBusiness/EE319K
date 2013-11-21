@@ -50,7 +50,7 @@ void ADC_Init(void){
 	NVIC_ST_RELOAD_R = 1999999;			// (0.025 s * 80000000)-1
 	NVIC_ST_CURRENT_R = 0;
 	NVIC_ST_CTRL_R = 7;
-	
+
 	
 }
 
