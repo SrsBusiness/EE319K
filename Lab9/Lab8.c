@@ -13,6 +13,7 @@
 #include "pll.h"
 #include "ADC.h"
 #include "tm4c123gh6pm.h"
+#include "UART.h"
 
 unsigned long ADCMail;
 unsigned char ADCStatus;
@@ -22,9 +23,11 @@ void EnableInterrupts(void);  // Enable interrupts
 long StartCritical (void);    // previous I bit, disable interrupts
 void EndCritical(long sr);    // restore I bit to previous value
 void WaitForInterrupt(void);  // low power mode
-int main2();
-int main3();
-
+//int main2();
+//int main3();
+int main(){
+	return 0;
+}
 void PortF_Init(void){
 	unsigned long volatile delay;
 	SYSCTL_RCGC2_R |= 0x20;
@@ -35,59 +38,13 @@ void PortF_Init(void){
 }
 unsigned long Data;      // 12-bit ADC
 unsigned long Position;  // 32-bit fixed-point 0.001 cm
-int main2(void){      // single step this program and look at Data
-	PLL_Init();         // Bus clock is 80 MHz 
-	ADC_Init();         // turn on ADC, set channel to 1
-	while(1){                
-		Data = ADC_In();  // sample 12-bit channel 1
-	}
-	//return main2();
-}
 
-int main4(void){
-	PLL_Init();         // Bus clock is 80 MHz 
-	ADC_Init();         // turn on ADC, set channel to 1
-	LCD_Init();   
-	LCD_SetTextColorRGB(YELLOW);
-	PortF_Init();
-	while(1){           // use scope to measure execution time for ADC_In and LCD_OutDec           
-		PF2 = 0x04;       // Profile
-		Data = ADC_In();  // sample 12-bit channel 1
-		PF2 = 0x00;       // Profile
-		LCD_Goto(0,0);
-		LCD_OutDec(Data); 
-		LCD_OutString("    "); 
-	}
-}
-
-unsigned long Convert(unsigned long input){
-	return 2 * input / 5;
-}
-int main3(void){ 
+int main_tx(){
 	PLL_Init();        // Bus clock is 80 MHz 
-	LCD_Init();   
-	LCD_SetTextColorRGB(YELLOW);
-	PortF_Init();
 	ADC_Init();        // turn on ADC, set channel to 1
-	while(1){  
-		PF2 ^= 0x04;     // Heartbeat
-		Data = ADC_In(); // sample 12-bit channel 1
-		PF2 ^= 0x04;
-	}
-}   
-
-int main(){
-	PLL_Init();        // Bus clock is 80 MHz 
-	LCD_Init();   
-	LCD_SetTextColorRGB(YELLOW);
-	PortF_Init();
-	ADC_Init();        // turn on ADC, set channel to 1
-	while(1){  
-		
-		Position = Convert(ADCMail); 
-		LCD_Goto(0,0);
-		LCD_OutString("Position: "); 
-		LCD_OutFix(Position);
-		LCD_OutString(" cm");
-	}
+	UART1_Init (); 
+	while(1);
+}
+int main_rx() {
+	return 0;
 }

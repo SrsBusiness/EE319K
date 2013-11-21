@@ -57,13 +57,13 @@
 // 8 bit word length, no parity bits, one stop bit, FIFOs enabled
 // Input: none
 // Output: none
-void UART_Init(void);
+void UART1_Init(void);
  
  //------------UART1_OutChar------------
 // Output 8-bit to serial port
 // Input: letter is an 8-bit ASCII character to be transferred
 // Output: none
-void UART_OutChar(unsigned char data);
+void UART1_OutChar(unsigned char data);
  
  
 
