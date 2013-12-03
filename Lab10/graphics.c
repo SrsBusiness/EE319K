@@ -149,13 +149,23 @@ void render_cube_fill(projected_cube projection, unsigned short color){
 //Clear all the cubes using render_cubes(BLACK)
 void render_cubes(unsigned short outline, unsigned short fill){
     projected_cube projection;
+    pixel temp;
     for(int i = 0; i < num_cubes; i++){
         for(int j = 0; j < 8; j++){
-            projection.v(j) = project(cubes[i].v(j));
+            project(cubes[i].v(j), &temp);
+            projection.v(j).x = temp.x;
+            projection.v(j).y = temp.y;
         }
-        render_cube_fill(projection, fill);
+        // render_cube_fill(projection, fill);
         render_cube_wireframe(projection, outline);
     }
+}
+
+void project(point cube, pixel *projection){
+    point temp;
+    vector(focal_point, cube, &temp);
+    projection -> x = (short)(temp.x * 200 / temp.y + 159); 
+    projection -> y = (short)(temp.z * 200 / temp.y * -1 + 119);
 }
 
 void draw_player(){
@@ -168,3 +178,4 @@ void print_int(int i, char x, char y){
     LCD_Goto(x, y);
     out_int(i);
 }
+

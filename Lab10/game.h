@@ -1,5 +1,5 @@
 #define MAX_CUBES 30
-#define CUBE_SIZE 10
+#define CUBE_SIZE 20
 #define FOCAL_LENGTH 200
 #define MIN_INT -2147483648
 
@@ -32,14 +32,15 @@ extern point focal_point;
 extern char dx, dy;
 extern unsigned char speed;
 // projects the cube onto the projection plane through the focal point
-pixel project(point cube); 
+void project(point cube, pixel *); 
 
 
-point vector(point start, point end);
+void vector(point start, point end, point *);
 
 int collision();
 
 int add_cube(cube);
 int remove_cube(cube);
 
+void new_cube(point, unsigned short, cube *);
 //int equals(cube, cube);

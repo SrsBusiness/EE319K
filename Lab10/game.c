@@ -11,24 +11,15 @@ point focal_point = {159, MIN_INT, -119};
 point player[3] = {{152, 15, -239}, {166, 15, -239}, {159, 30, -239}};
 // projects point onto projection plane through focal point
 
-pixel project(point cube){ 
-    point temp = vector(focal_point, cube);
-    /*
-    out_int(temp.x);
-    LCD_OutChar('\n');
-    out_int(temp.y);
-    LCD_OutChar('\n');
-    out_int(temp.z);
-    LCD_OutChar('\n');
-    */
-    return (pixel){(short)(temp.x * 200 / temp.y + 159), 
-        (short)(temp.z * 200 / temp.y * -1 + 119)};
-}
+
+
 
 
 // calculates vector between 2 points
-point vector(point start, point end){
-    return (point){end.x - start.x, end.y - start.y, end.z - start.z};
+void vector(point start, point end, point *vector){
+    vector -> x = end.x - start.x;
+    vector -> y = end.y - start.y;
+    vector -> z = end.z - start.z;
 }
 
 // adds cube to game, returns -1 if overflow, otherwise returns
@@ -77,4 +68,15 @@ int collision(){
         }
     }
     return 0;
+}
+
+void new_cube(point base, unsigned short color, cube *new){
+    *new = (cube){{{base.x, base.y, base.z}, 
+        {base.x + CUBE_SIZE, base.y, base.z},
+        {base.x + CUBE_SIZE, base.y - CUBE_SIZE, base.z},
+        {base.x, base.y - CUBE_SIZE, base.z},
+        {base.x, base.y, base.z + CUBE_SIZE},
+        {base.x + CUBE_SIZE, base.y, base.z + CUBE_SIZE},
+        {base.x + CUBE_SIZE, base.y - CUBE_SIZE, base.z + CUBE_SIZE},
+        {base.x, base.y - CUBE_SIZE, base.z + CUBE_SIZE}}, color};
 }
