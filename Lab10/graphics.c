@@ -12,73 +12,7 @@
 #define swap(a, b) do{int i = a; a = b; b = i;} while(0)
 
 void print_int(int, char, char);
-void render_cubes(){
-    projected_cube temp;
-    for(int i = 0; i < num_cubes; i++){
-        for(int j = 0; j < 8; j++){
-            temp.vertices[j] = project(cubes[i].vertices[j]);
-        }
-        LCD_DrawLine(temp.vertices[0].x, temp.vertices[0].y, 
-                temp.vertices[1].x, temp.vertices[1].y, 0);
-        LCD_DrawLine(temp.vertices[0].x, temp.vertices[0].y, 
-                temp.vertices[3].x, temp.vertices[3].y, 0);
-        LCD_DrawLine(temp.vertices[0].x, temp.vertices[0].y, 
-                temp.vertices[4].x, temp.vertices[4].y, 0);
-        
-        LCD_DrawLine(temp.vertices[1].x, temp.vertices[1].y, 
-                temp.vertices[5].x, temp.vertices[5].y, 0);
-        LCD_DrawLine(temp.vertices[1].x, temp.vertices[1].y, 
-                temp.vertices[2].x, temp.vertices[2].y, 0);
-        LCD_DrawLine(temp.vertices[2].x, temp.vertices[2].y, 
-                temp.vertices[6].x, temp.vertices[6].y, 0);
-        LCD_DrawLine(temp.vertices[2].x, temp.vertices[2].y, 
-                temp.vertices[3].x, temp.vertices[3].y, 0);
-        LCD_DrawLine(temp.vertices[3].x, temp.vertices[3].y, 
-                temp.vertices[7].x, temp.vertices[7].y, 0);
-        LCD_DrawLine(temp.vertices[4].x, temp.vertices[4].y, 
-                temp.vertices[5].x, temp.vertices[5].y, 0);
-        LCD_DrawLine(temp.vertices[4].x, temp.vertices[4].y, 
-                temp.vertices[7].x, temp.vertices[7].y, 0);
-        LCD_DrawLine(temp.vertices[5].x, temp.vertices[5].y, 
-                temp.vertices[6].x, temp.vertices[6].y, 0);
-        LCD_DrawLine(temp.vertices[6].x, temp.vertices[6].y, 
-                temp.vertices[7].x, temp.vertices[7].y, 0);
-    }
-}
-void erase_cubes(){
-    projected_cube temp;
-    for(int i = 0; i < num_cubes; i++){
-        for(int j = 0; j < 8; j++){
-            temp.vertices[j] = project(cubes[i].vertices[j]);
-        }
-        LCD_DrawLine(temp.vertices[0].x, temp.vertices[0].y, 
-                temp.vertices[1].x, temp.vertices[1].y, 0xFFFF);
-        LCD_DrawLine(temp.vertices[0].x, temp.vertices[0].y, 
-                temp.vertices[3].x, temp.vertices[3].y, 0xFFFF);
-        LCD_DrawLine(temp.vertices[0].x, temp.vertices[0].y, 
-                temp.vertices[4].x, temp.vertices[4].y, 0xFFFF);
-        
-        LCD_DrawLine(temp.vertices[1].x, temp.vertices[1].y, 
-                temp.vertices[5].x, temp.vertices[5].y, 0xFFFF);
-        LCD_DrawLine(temp.vertices[1].x, temp.vertices[1].y, 
-                temp.vertices[2].x, temp.vertices[2].y, 0xFFFF);
-        LCD_DrawLine(temp.vertices[2].x, temp.vertices[2].y, 
-                temp.vertices[6].x, temp.vertices[6].y, 0xFFFF);
-        LCD_DrawLine(temp.vertices[2].x, temp.vertices[2].y, 
-                temp.vertices[3].x, temp.vertices[3].y, 0xFFFF);
-        LCD_DrawLine(temp.vertices[3].x, temp.vertices[3].y, 
-                temp.vertices[7].x, temp.vertices[7].y, 0xFFFF);
-        LCD_DrawLine(temp.vertices[4].x, temp.vertices[4].y, 
-                temp.vertices[5].x, temp.vertices[5].y, 0xFFFF);
-        LCD_DrawLine(temp.vertices[4].x, temp.vertices[4].y, 
-                temp.vertices[7].x, temp.vertices[7].y, 0xFFFF);
-        LCD_DrawLine(temp.vertices[5].x, temp.vertices[5].y, 
-                temp.vertices[6].x, temp.vertices[6].y, 0xFFFF);
-        LCD_DrawLine(temp.vertices[6].x, temp.vertices[6].y, 
-                temp.vertices[7].x, temp.vertices[7].y, 0xFFFF);
-    }
-}
-/*
+
 void render_cube_wireframe(projected_cube projection, unsigned short color){
     LCD_DrawLine(projection.v(0).x, projection.v(0).y, 
                  projection.v(1).x, projection.v(1).y, color);
@@ -110,8 +44,37 @@ void render_cube_wireframe(projected_cube projection, unsigned short color){
 }
 
 void render_cube_fill(projected_cube projection, unsigned short color){
-    LCD_DrawFilledRect(unsigned short x, unsigned short y, short width, short height, unsigned short color)
-    2367
+    int x, y;
+    double slope_left = (double)(projection.v(7).y-projection.v(4).y)/
+                        (double)(projection.v(4).x-projection.v(7).x);
+    double slope_right = (double)(projection.v(6).y-projection.v(5).y)/
+                         (double)(projection.v(6).x-projection.v(5).x);
+    //Draw front face
+    LCD_DrawFilledRect(projection.v(7).x, projection.v(7).y,
+                       projection.v(2).x-projection.v(7).x,
+                       projection.v(2).y-projection.v(7).y, color);
+    //Draw top face and side face
+    LCD_DrawFilledRect(projection.v(4).x, projection.v(4).y,
+                       projection.v(5).x-projection.v(4).x,
+                       projection.v(7).y-projection.v(4).y, color);
+    if (projection.v(7).x < projection.v(4).x) {
+        for (x=projection.v(7).x; x < projection.v(4).x; ++x){
+            for (y=projection.v(4).y; y < projection.v(7).y; ++y){
+                if ((double)x/(double)y < slope_left) {
+                    LCD_DrawPixel(x, y, color);
+                }
+            }
+        }
+    }
+    if (projection.v(5).x < projection.v(6).x) {
+        for (x=projection.v(5).x; x < projection.v(6).x; ++x){
+            for (y=projection.v(5).y; y < projection.v(6).y; ++y){
+                if ((double)x/(double)y < slope_right) {
+                    LCD_DrawPixel(x, y, color);
+                }
+            }
+        }
+    }
 }
 
 //Clear all the cubes using render_cubes(BLACK)
@@ -125,7 +88,6 @@ void render_cubes(unsigned short outline, unsigned short fill){
         render_cube_wireframe(projection, outline);
     }
 }
-*/
 
 void print_int(int i, char x, char y){
     LCD_Goto(x, y);

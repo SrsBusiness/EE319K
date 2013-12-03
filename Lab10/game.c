@@ -1,5 +1,5 @@
 #include "game.h"
-
+#include "LCD.h"
 cube cubes[MAX_CUBES];
 unsigned char num_cubes = 0;
 char dx = 0;
@@ -22,7 +22,7 @@ pixel project(point cube){
     LCD_OutChar('\n');
     */
     return (pixel){(short)(temp.x * 200 / temp.y + 159), 
-        (short)(temp.z * 200 / temp.y + 239)};
+        (short)(temp.z * 200 / temp.y * -1)};
 }
 
 
