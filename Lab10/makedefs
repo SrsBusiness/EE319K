@@ -109,7 +109,7 @@ CFLAGS=-mthumb             \
        -pedantic           \
        -c                  \
        -DPART_${PART}      \
-
+       -O3                 \
 #
 # The command for calling the library archiver.
 #
