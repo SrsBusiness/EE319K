@@ -77,6 +77,7 @@ ${COMPILER}/cube_runner.axf: ${COMPILER}/graphics.o
 ${COMPILER}/cube_runner.axf: ${COMPILER}/interrupts.o
 ${COMPILER}/cube_runner.axf: ${COMPILER}/PLL.o
 ${COMPILER}/cube_runner.axf: ${COMPILER}/game.o
+${COMPILER}/cube_runner.axf: ${COMPILER}/ADC.o
 
 ${COMPILER}/cube_runner.axf: ${ROOT}/driverlib/${COMPILER}/libdriver.a
 ${COMPILER}/cube_runner.axf: cube_runner.ld

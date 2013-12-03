@@ -8,7 +8,7 @@ unsigned char speed = 1;// 1 - 10
 
 point focal_point = {159, MIN_INT, -119};
 
-point player[64] = {{152, 0, -239}, {166, 0, -239}, {159, 3, -239}};
+point player[3] = {{152, 15, -239}, {166, 15, -239}, {159, 30, -239}};
 // projects point onto projection plane through focal point
 
 pixel project(point cube){ 
@@ -61,6 +61,20 @@ int equals(point cube1, point cube2){
 }
 
 //3D of player: (focal_point.x, focal_point.y + 15, focal_point.z - 159)
+//point player[3] = {{focal_point.x - 7, 200 + focal_point.y, -239}, 
+//{focal_point.x + 7, 200 + focal_point.y, -239}, 
+//{focal_point.x, 203 + focal_point.y, -239}};
 int collision(){
-    return 0;         
+    for(int i = 0; i < num_cubes; i++){
+        for(int j = 0; j < 4; j++){
+            // positive slope
+            int b0 = focal_point.y + 200 - 5 * (focal_point.x + 7);
+            // negative slope
+            int b1 = focal_point.y + 200 + 5 * (focal_point.x + 7);
+            if(cubes[i].vertices[j].x * 5 + b0 >= cubes[i].vertices[j].y &&
+                    cubes[i].vertices[j].x * -5 + b1 >= cubes[i].vertices[j].y)
+                return 1;
+        }
+    }
+    return 0;
 }

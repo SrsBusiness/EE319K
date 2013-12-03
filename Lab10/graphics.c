@@ -145,6 +145,12 @@ void render_cubes(unsigned short outline, unsigned short fill){
     }
 }
 
+void draw_player(){
+    LCD_DrawLine(152, 231, 166, 231, 0);
+    LCD_DrawLine(152, 231, 159, 224, 0);
+    LCD_DrawLine(166, 231, 159, 224, 0);
+}
+
 void print_int(int i, char x, char y){
     LCD_Goto(x, y);
     out_int(i);
