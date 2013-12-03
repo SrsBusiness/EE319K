@@ -1,5 +1,5 @@
 #define MAX_CUBES 30
-#define CUBE_SIZE 20
+#define CUBE_SIZE 40
 #define FOCAL_LENGTH 200
 #define MIN_INT -2147483648
 

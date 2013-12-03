@@ -19,7 +19,6 @@
 // SS3 triggering event: software trigger
 // SS3 1st sample source: Ain1 (PE2)
 // SS3 interrupts: flag set on completion but no interrupt requested
-void SysTick_Init();
 void ADC_Init(void){ 
 	//make it PE2 and channel 1
 	SYSCTL_RCGC2_R |= 0x00000010;   // 1) activate clock for Port E
@@ -47,7 +46,6 @@ void ADC_Init(void){
 	ADC0_SSMUX3_R = (ADC0_SSMUX3_R&0xFFFFFFF0)+1; // 11) Ain9 (PE4)
 	ADC0_SSCTL3_R = 0x0006;         // 12) no TS0 D0, yes IE0 END0
 	ADC0_ACTSS_R |= 0x0008;         // 13) enable sample sequencer 3
-	SysTick_Init();
 	/*
 	NVIC_ST_CTRL_R = 0;
 	NVIC_ST_RELOAD_R = 1999999;			// (0.025 s * 80000000)-1
@@ -70,19 +68,6 @@ unsigned long ADC_In(void){
 	return result;
 }
 
-void SysTick_Init(){
-	NVIC_ST_CTRL_R = 0;
-	NVIC_ST_RELOAD_R = 0x1E8479;
-	NVIC_ST_CURRENT_R = 0;
-	NVIC_ST_CTRL_R = 7;
-}
-
-void SysTick_Handler(){
-	ADCMail = ADC_In();
-	ADCStatus = 1;
-	PF2 ^= 0x04;
-}
-//Systick_Handler
 
 
 
