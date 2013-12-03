@@ -41,6 +41,7 @@ void render_cube_wireframe_alpha(projected_cube projection, unsigned short color
 }
 
 void render_cube_wireframe(projected_cube projection, unsigned short color){
+    //Front
     LCD_DrawLine(projection.v(2).x, projection.v(2).y, 
                  projection.v(3).x, projection.v(3).y, color);
     LCD_DrawLine(projection.v(3).x, projection.v(3).y, 
@@ -49,7 +50,7 @@ void render_cube_wireframe(projected_cube projection, unsigned short color){
                  projection.v(6).x, projection.v(6).y, color);
     LCD_DrawLine(projection.v(6).x, projection.v(6).y, 
                  projection.v(2).x, projection.v(2).y, color);
-
+    //Top
     LCD_DrawLine(projection.v(6).x, projection.v(6).y, 
                  projection.v(5).x, projection.v(5).y, color);
     LCD_DrawLine(projection.v(5).x, projection.v(5).y, 
@@ -175,7 +176,7 @@ void render_cube_fill(projected_cube projection, unsigned short color){
     }
 }
 
-//Clear all the cubes using render_cubes(BLACK)
+//Clear all the cubes using render_cubes(WHITE, WHITE)
 void render_cubes(unsigned short outline, unsigned short fill){
     projected_cube projection;
     pixel temp;
@@ -190,6 +191,7 @@ void render_cubes(unsigned short outline, unsigned short fill){
     }
 }
 
+//Projects point onto projection plane through focal point
 void project(point cube, pixel *projection){
     point temp;
     vector(focal_point, cube, &temp);

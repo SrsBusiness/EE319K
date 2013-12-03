@@ -1,5 +1,8 @@
 #include "game.h"
 #include "LCD.h"
+
+#define MAX_Z 9001
+
 cube cubes[MAX_CUBES];
 unsigned char num_cubes = 0;
 char dx = 0;
@@ -9,30 +12,30 @@ unsigned char speed = 1;// 1 - 10
 point focal_point = {159, MIN_INT, -119};
 
 point player[3] = {{152, 15, -239}, {166, 15, -239}, {159, 30, -239}};
-// projects point onto projection plane through focal point
 
-
-
-
-
-// calculates vector between 2 points
+// Calculate vector between 2 points
 void vector(point start, point end, point *vector){
     vector -> x = end.x - start.x;
     vector -> y = end.y - start.y;
     vector -> z = end.z - start.z;
 }
 
-// adds cube to game, returns -1 if overflow, otherwise returns
-// updated # of cubes
+// Adds cube to game.
+//  If overflow: return -1.
+//  Otherwise: return number of cubes in the world currently.
+// 
 int add_cube(cube cube){
     if(num_cubes == MAX_CUBES)
         return -1;
+
     cubes[num_cubes++] = cube;
+
     return num_cubes;
 }
 
-// removes cube from game, returns -1 if nothing removed,
-// otherwise returns updated # of cubes
+// Removes cube from game.
+//  If underflow: return -1.
+//  Otherwise: return number of cubes in the world currently.
 /*
 int remove_cube(cube cube){
     for(int i = 0; i < num_cubes; i++){
@@ -46,6 +49,21 @@ int remove_cube(cube cube){
     return -1;
 }
 */
+
+// Cleans cubes with z value > MAX_Z from game.
+void clean_cubes(){
+    int i = 0, j = 0;
+    int n = num_cubes;
+    while(i < n){
+        if (cubes[i].vertices[2].z > MAX_Z){
+            num_cubes--;
+        } else {
+            cubes[j++] = cubes[i];
+        }
+        i++;
+    }
+}
+
 // boolean comparison operation on cubes
 int equals(point cube1, point cube2){
     return cube1.x == cube2.x && cube1.y == cube2.y && cube1.z == cube2.z; 
