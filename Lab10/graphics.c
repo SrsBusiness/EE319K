@@ -45,10 +45,6 @@ void render_cube_wireframe(projected_cube projection, unsigned short color){
 
 void render_cube_fill(projected_cube projection, unsigned short color){
     int x, y;
-    double slope_left = (double)(projection.v(7).y-projection.v(4).y)/
-                        (double)(projection.v(4).x-projection.v(7).x);
-    double slope_right = (double)(projection.v(6).y-projection.v(5).y)/
-                         (double)(projection.v(6).x-projection.v(5).x);
     //Draw front face
     LCD_DrawFilledRect(projection.v(7).x, projection.v(7).y,
                        projection.v(2).x-projection.v(7).x,
@@ -60,7 +56,8 @@ void render_cube_fill(projected_cube projection, unsigned short color){
     if (projection.v(7).x < projection.v(4).x) {
         for (x=projection.v(7).x; x < projection.v(4).x; ++x){
             for (y=projection.v(4).y; y < projection.v(7).y; ++y){
-                if ((double)x/(double)y < slope_left) {
+                if ((projection.v(4).x-projection.v(7).x)*y <
+                    (projection.v(7).y-projection.v(4).y)*x) {
                     LCD_DrawPixel(x, y, color);
                 }
             }
@@ -69,7 +66,8 @@ void render_cube_fill(projected_cube projection, unsigned short color){
     if (projection.v(5).x < projection.v(6).x) {
         for (x=projection.v(5).x; x < projection.v(6).x; ++x){
             for (y=projection.v(5).y; y < projection.v(6).y; ++y){
-                if ((double)x/(double)y < slope_right) {
+                if ((projection.v(6).x-projection.v(5).x)*y <
+                    (projection.v(6).y-projection.v(5).y)*x) {
                     LCD_DrawPixel(x, y, color);
                 }
             }
