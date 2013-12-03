@@ -79,49 +79,50 @@ void erase_cubes(){
     }
 }
 /*
-void render_cube_wireframe(cube object, unsigned short color){
-    projected_cube p_temp;
-    for(int i = 0; i < 8; i++){
-        p_temp.vertices[j] = project(object.vertices[j]);
-    }
-    LCD_DrawLine(p_temp.v(0).x, p_temp.v(0).y, 
-                 p_temp.v(1).x, p_temp.v(1).y, color);
-    LCD_DrawLine(p_temp.v(0).x, p_temp.v(0).y, 
-                 p_temp.v(3).x, p_temp.v(3).y, color);
-    LCD_DrawLine(p_temp.v(0).x, p_temp.v(0).y, 
-                 p_temp.v(4).x, p_temp.v(4).y, color);
+void render_cube_wireframe(projected_cube projection, unsigned short color){
+    LCD_DrawLine(projection.v(0).x, projection.v(0).y, 
+                 projection.v(1).x, projection.v(1).y, color);
+    LCD_DrawLine(projection.v(0).x, projection.v(0).y, 
+                 projection.v(3).x, projection.v(3).y, color);
+    LCD_DrawLine(projection.v(0).x, projection.v(0).y, 
+                 projection.v(4).x, projection.v(4).y, color);
 
-    LCD_DrawLine(p_temp.v(2).x, p_temp.v(2).y, 
-                 p_temp.v(1).x, p_temp.v(1).y, color);
-    LCD_DrawLine(p_temp.v(2).x, p_temp.v(2).y, 
-                 p_temp.v(3).x, p_temp.v(3).y, color);
-    LCD_DrawLine(p_temp.v(2).x, p_temp.v(2).y, 
-                 p_temp.v(6).x, p_temp.v(6).y, color);
+    LCD_DrawLine(projection.v(2).x, projection.v(2).y, 
+                 projection.v(1).x, projection.v(1).y, color);
+    LCD_DrawLine(projection.v(2).x, projection.v(2).y, 
+                 projection.v(3).x, projection.v(3).y, color);
+    LCD_DrawLine(projection.v(2).x, projection.v(2).y, 
+                 projection.v(6).x, projection.v(6).y, color);
    
-    LCD_DrawLine(p_temp.v(5).x, p_temp.v(5).y, 
-                 p_temp.v(1).x, p_temp.v(1).y, color);
-    LCD_DrawLine(p_temp.v(5).x, p_temp.v(5).y, 
-                 p_temp.v(4).x, p_temp.v(4).y, color);
-    LCD_DrawLine(p_temp.v(5).x, p_temp.v(5).y, 
-                 p_temp.v(6).x, p_temp.v(6).y, color);
+    LCD_DrawLine(projection.v(5).x, projection.v(5).y, 
+                 projection.v(1).x, projection.v(1).y, color);
+    LCD_DrawLine(projection.v(5).x, projection.v(5).y, 
+                 projection.v(4).x, projection.v(4).y, color);
+    LCD_DrawLine(projection.v(5).x, projection.v(5).y, 
+                 projection.v(6).x, projection.v(6).y, color);
    
-    LCD_DrawLine(p_temp.v(7).x, p_temp.v(7).y, 
-                 p_temp.v(3).x, p_temp.v(3).y, color);
-    LCD_DrawLine(p_temp.v(7).x, p_temp.v(7).y, 
-                 p_temp.v(4).x, p_temp.v(4).y, color);
-    LCD_DrawLine(p_temp.v(7).x, p_temp.v(7).y, 
-                 p_temp.v(6).x, p_temp.v(6).y, color);
+    LCD_DrawLine(projection.v(7).x, projection.v(7).y, 
+                 projection.v(3).x, projection.v(3).y, color);
+    LCD_DrawLine(projection.v(7).x, projection.v(7).y,
+                 projection.v(4).x, projection.v(4).y, color);
+    LCD_DrawLine(projection.v(7).x, projection.v(7).y, 
+                 projection.v(6).x, projection.v(6).y, color);
 }
 
-void render_cube_fill(cube object, unsigned short color){
-;
+void render_cube_fill(projected_cube projection, unsigned short color){
+    LCD_DrawFilledRect(unsigned short x, unsigned short y, short width, short height, unsigned short color)
+    2367
 }
 
 //Clear all the cubes using render_cubes(BLACK)
 void render_cubes(unsigned short outline, unsigned short fill){
+    projected_cube projection;
     for(int i = 0; i < num_cubes; i++){
-        render_cube_fill(cubes[i], outline);
-        render_cube_wireframe(cubes[i], outline);
+        for(int j = 0; j < 8; j++){
+            projection.v(j) = project(cubes[i].v(j));
+        }
+        render_cube_fill(projection, fill);
+        render_cube_wireframe(projection, outline);
     }
 }
 */
