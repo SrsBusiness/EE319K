@@ -110,7 +110,7 @@ void render_cube_fill(projected_cube projection, unsigned short color){
                     (projection.v(4).y-projection.v(7).y)*x) {
                     LCD_DrawPixel(x, y, BLUE);
                 } else {
-                    ;
+                    LCD_DrawPixel(x, y, GREEN);
                 }
             }
         }
@@ -120,6 +120,8 @@ void render_cube_fill(projected_cube projection, unsigned short color){
                 if ((projection.v(6).x-projection.v(5).x)*y <
                     (projection.v(6).y-projection.v(5).y)*x) {
                     LCD_DrawPixel(x, y, BLUE);
+                } else {
+                    LCD_DrawPixel(x, y, GREEN);
                 }
             }
         }
