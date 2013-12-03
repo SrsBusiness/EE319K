@@ -87,7 +87,7 @@ void render_cube_fill(projected_cube projection, unsigned short color){
         //Lefty top triangle
         for (x=projection.v(7).x; x < projection.v(4).x; ++x){
             for (y=projection.v(4).y; y < projection.v(7).y; ++y){
-                if (((projection.v(4).x-projection.v(7).x)*(y-projection.v(4).y)) <
+                if (((projection.v(4).x-projection.v(7).x)*(y-projection.v(4).y)) <=
                     ((projection.v(7).y-projection.v(4).y)*(x-projection.v(7).x))) {
                     LCD_DrawPixel(x, projection.v(7).y-(y-projection.v(4).y), GREEN);
                 }
@@ -96,7 +96,7 @@ void render_cube_fill(projected_cube projection, unsigned short color){
         //Righty top triangle
         for (x=projection.v(6).x; x < projection.v(5).x; ++x){
             for (y=projection.v(5).y; y < projection.v(6).y; ++y){
-                if ((projection.v(5).x-projection.v(6).x)*(y-projection.v(5).y) <
+                if ((projection.v(5).x-projection.v(6).x)*(y-projection.v(5).y) <=
                     (projection.v(6).y-projection.v(5).y)*(x-projection.v(6).x)) {
                     LCD_DrawPixel(x, projection.v(6).y-(y-projection.v(5).y), BLUE);
                 } else {
@@ -107,11 +107,11 @@ void render_cube_fill(projected_cube projection, unsigned short color){
         //Draw right face
         LCD_DrawFilledRect(projection.v(6).x, projection.v(6).y,
                            projection.v(1).x-projection.v(6).x,
-                           projection.v(1).y-projection.v(6).y, BLUE);
+                           projection.v(1).y-projection.v(6).y + 1, BLUE);
         //Lower right triangle
         for (x=projection.v(2).x; x < projection.v(1).x; ++x){
             for (y=projection.v(1).y; y < projection.v(2).y; ++y){
-                if ((projection.v(1).x-projection.v(2).x)*(y-projection.v(1).y) >
+                if ((projection.v(1).x-projection.v(2).x)*(y-projection.v(1).y) >=
                     (projection.v(2).y-projection.v(1).y)*(x-projection.v(2).x)) {
                     LCD_DrawPixel(x, projection.v(2).y-(y-projection.v(1).y), BLUE);
                 }
@@ -122,7 +122,7 @@ void render_cube_fill(projected_cube projection, unsigned short color){
         //Lefty top triangle
         for (x=projection.v(4).x; x < projection.v(7).x; ++x){
             for (y=projection.v(4).y; y < projection.v(7).y; ++y){
-                if ((projection.v(7).x-projection.v(4).x)*(y-projection.v(4).y) <
+                if ((projection.v(7).x-projection.v(4).x)*(y-projection.v(4).y) <=
                     (projection.v(7).y-projection.v(4).y)*(x-projection.v(4).x)) {
                     LCD_DrawPixel(x, y, GREEN);
                 } else {
@@ -133,7 +133,7 @@ void render_cube_fill(projected_cube projection, unsigned short color){
         //Righty top triangle
         for (x=projection.v(5).x; x < projection.v(6).x; ++x){
             for (y=projection.v(5).y; y < projection.v(6).y; ++y){
-                if ((projection.v(6).x-projection.v(5).x)*(y-projection.v(5).y) <
+                if ((projection.v(6).x-projection.v(5).x)*(y-projection.v(5).y) >=
                     (projection.v(6).y-projection.v(5).y)*(x-projection.v(5).x)) {
                     LCD_DrawPixel(x, y, GREEN);
                 }
@@ -146,7 +146,7 @@ void render_cube_fill(projected_cube projection, unsigned short color){
         //Lower left triangle
         for (x=projection.v(0).x; x < projection.v(3).x; ++x){
             for (y=projection.v(0).y; y < projection.v(3).y; ++y){
-                if ((projection.v(3).x-projection.v(0).x)*(y-projection.v(0).y) <
+                if ((projection.v(3).x-projection.v(0).x)*(y-projection.v(0).y) <=
                     (projection.v(3).y-projection.v(0).y)*(x-projection.v(0).x)) {
                     LCD_DrawPixel(x, y, YELLOW);
                 }
@@ -157,7 +157,7 @@ void render_cube_fill(projected_cube projection, unsigned short color){
         //Lefty top triangle
         for (x=projection.v(7).x; x < projection.v(4).x; ++x){
             for (y=projection.v(4).y; y < projection.v(7).y; ++y){
-                if (((projection.v(4).x-projection.v(7).x)*(y-projection.v(4).y)) <
+                if (((projection.v(4).x-projection.v(7).x)*(y-projection.v(4).y)) <=
                         ((projection.v(7).y-projection.v(4).y)*(x-projection.v(7).x))) {
                     LCD_DrawPixel(x, projection.v(7).y-(y-projection.v(4).y), GREEN);
                 }
@@ -166,7 +166,7 @@ void render_cube_fill(projected_cube projection, unsigned short color){
         //Righty top triangle
         for (x=projection.v(5).x; x < projection.v(6).x; ++x){
             for (y=projection.v(5).y; y < projection.v(6).y; ++y){
-                if ((projection.v(6).x-projection.v(5).x)*(y-projection.v(5).y) <
+                if ((projection.v(6).x-projection.v(5).x)*(y-projection.v(5).y) <=
                         (projection.v(6).y-projection.v(5).y)*(x-projection.v(5).x)) {
                     LCD_DrawPixel(x, y, GREEN);
                 }
@@ -185,7 +185,7 @@ void render_cubes(unsigned short outline, unsigned short fill){
             projection.v(j).x = temp.x;
             projection.v(j).y = temp.y;
         }
-        // render_cube_fill(projection, fill);
+        render_cube_fill(projection, fill);
         render_cube_wireframe(projection, outline);
     }
 }
