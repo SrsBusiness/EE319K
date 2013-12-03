@@ -12,6 +12,7 @@
 #define swap(a, b) do{int i = a; a = b; b = i;} while(0)
 
 void print_int(int, char, char);
+/*
 void render_cubes(){
     projected_cube temp;
     for(int i = 0; i < num_cubes; i++){
@@ -78,11 +79,12 @@ void erase_cubes(){
                 temp.vertices[7].x, temp.vertices[7].y, 0xFFFF);
     }
 }
-/*
+*/
+
 void render_cube_wireframe(cube object, unsigned short color){
     projected_cube p_temp;
     for(int i = 0; i < 8; i++){
-        p_temp.vertices[j] = project(object.vertices[j]);
+        p_temp.vertices[i] = project(object.vertices[i]);
     }
     LCD_DrawLine(p_temp.v(0).x, p_temp.v(0).y, 
                  p_temp.v(1).x, p_temp.v(1).y, color);
@@ -124,7 +126,6 @@ void render_cubes(unsigned short outline, unsigned short fill){
         render_cube_wireframe(cubes[i], outline);
     }
 }
-*/
 
 void print_int(int i, char x, char y){
     LCD_Goto(x, y);
