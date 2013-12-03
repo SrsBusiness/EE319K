@@ -50,6 +50,10 @@ void LCD_WriteData(unsigned short data){
 // stdio functions
 
 int out_int(int i){
+    if(i < 0){
+        LCD_OutChar('-');
+        i *= -1;
+    }
     char stack[10];
     char index = 0;
     char digits;

@@ -3,3 +3,4 @@
 void refresh();
 void white_out();
 void render_cubes();
+void erase_cubes();

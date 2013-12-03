@@ -506,7 +506,8 @@ void LCD_DrawLine(unsigned short startX, unsigned short startY, unsigned short e
     short err = (dx>dy ? dx : -dy)/2, e2;
 
     for(;;){
-        LCD_DrawPixel(x0, y0, color);
+        if(x0 >= 0 && x0 < 320 && y0 >= 0 && y0 < 240)
+            LCD_DrawPixel(x0, y0, color);
         if (x0==x1 && y0==y1) break;
         e2 = err;
         if (e2 >-dx) { err -= dy; x0 += sx; }

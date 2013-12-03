@@ -9,7 +9,7 @@ struct point{
 } typedef point;
 
 struct pixel{
-    unsigned short x, y;
+    short x, y;
 } typedef pixel;
 
 struct cube{

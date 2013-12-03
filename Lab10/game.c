@@ -1,20 +1,28 @@
 #include "game.h"
 
-//cube cubes[MAX_CUBES];
+cube cubes[MAX_CUBES];
 unsigned char num_cubes = 0;
 char dx = 0;
 char dy = 1;
 unsigned char speed = 1;// 1 - 10
 
-point focal_point = {0, MIN_INT, 159};
+point focal_point = {159, MIN_INT, -119};
 
-point player[64] = {{152, 0, 0}, {166, 0, 0}, {159, 3, 0}};
+point player[64] = {{152, 0, -239}, {166, 0, -239}, {159, 3, -239}};
 // projects point onto projection plane through focal point
 
 pixel project(point cube){ 
     point temp = vector(focal_point, cube);
+    /*
+    out_int(temp.x);
+    LCD_OutChar('\n');
+    out_int(temp.y);
+    LCD_OutChar('\n');
+    out_int(temp.z);
+    LCD_OutChar('\n');
+    */
     return (pixel){(short)(temp.x * 200 / temp.y + 159), 
-        (short)(temp.z * 200 / temp.y + 119)};
+        (short)(temp.z * 200 / temp.y + 239)};
 }
 
 
