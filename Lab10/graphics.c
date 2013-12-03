@@ -58,46 +58,39 @@ void render_cube_fill(projected_cube projection, unsigned short color){
     LCD_DrawFilledRect(projection.v(4).x, projection.v(4).y,
                        ((projection.v(5).x<projection.v(6).x)?
                         projection.v(5).x:projection.v(6).x)-projection.v(4).x,
-                       projection.v(7).y-projection.v(4).y, BURNTORANGE);
+                       projection.v(7).y-projection.v(4).y, ORANGE);
     //Cube on left side
     if (projection.v(6).x < projection.v(5).x) {
         //Lefty top triangle
         for (x=projection.v(7).x; x < projection.v(4).x; ++x){
             for (y=projection.v(4).y; y < projection.v(7).y; ++y){
-                if (((projection.v(4).x-projection.v(7).x)*y) <
-                    ((projection.v(4).y-projection.v(7).y)*x)) {
-                    LCD_DrawPixel(x, y, BLUE);
+                if (((projection.v(4).x-projection.v(7).x)*(y-projection.v(4).y)) <
+                    ((projection.v(7).y-projection.v(4).y)*(x-projection.v(7).x))) {
+                    LCD_DrawPixel(x, projection.v(7).y-(y-projection.v(4).y), ORANGE);
                 }
             }
         }
         //Righty top triangle
         for (x=projection.v(6).x; x < projection.v(5).x; ++x){
             for (y=projection.v(5).y; y < projection.v(6).y; ++y){
-                if ((projection.v(5).x-projection.v(6).x)*y <
-                    (projection.v(6).y-projection.v(5).y)*x) {
-                    LCD_DrawPixel(x, y, BLUE);
+                if ((projection.v(5).x-projection.v(6).x)*(y-projection.v(5).y) <
+                    (projection.v(6).y-projection.v(5).y)*(x-projection.v(6).x)) {
+                    LCD_DrawPixel(x, projection.v(6).y-(y-projection.v(5).y), BURNTORANGE);
+                } else {
+                    LCD_DrawPixel(x, projection.v(6).y-(y-projection.v(5).y), ORANGE);
                 }
             }
         }
         //Draw right face
         LCD_DrawFilledRect(projection.v(6).x, projection.v(6).y,
-                           projection.v(2).x-projection.v(6).x,
-                           projection.v(2).y-projection.v(6).y, PINK);
-        //Upper right triangle
-        for (x=projection.v(6).x; x < projection.v(5).x; ++x){
-            for (y=projection.v(5).y; y < projection.v(6).y; ++y){
-                if ((projection.v(5).x-projection.v(6).x)*y <
-                    (projection.v(6).y-projection.v(5).y)*x) {
-                    LCD_DrawPixel(x, y, VIOLET);
-                }
-            }
-        }
+                           projection.v(1).x-projection.v(6).x,
+                           projection.v(1).y-projection.v(6).y, BURNTORANGE);
         //Lower right triangle
         for (x=projection.v(2).x; x < projection.v(1).x; ++x){
             for (y=projection.v(1).y; y < projection.v(2).y; ++y){
-                if ((projection.v(1).x-projection.v(2).x)*y <
-                    (projection.v(2).y-projection.v(1).y)*x) {
-                    LCD_DrawPixel(x, y, VIOLET);
+                if ((projection.v(1).x-projection.v(2).x)*(y-projection.v(1).y) >
+                    (projection.v(2).y-projection.v(1).y)*(x-projection.v(2).x)) {
+                    LCD_DrawPixel(x, projection.v(2).y-(y-projection.v(1).y), BURNTORANGE);
                 }
             }
         }
@@ -106,23 +99,23 @@ void render_cube_fill(projected_cube projection, unsigned short color){
         //Lefty top triangle
         for (x=projection.v(4).x; x < projection.v(7).x; ++x){
             for (y=projection.v(4).y; y < projection.v(7).y; ++y){
-                if ((projection.v(7).x-projection.v(4).x)*y <
-                    (projection.v(4).y-projection.v(7).y)*x) {
+                //if ((projection.v(7).x-projection.v(4).x)*y <
+                //    (projection.v(4).y-projection.v(7).y)*x) {
                     LCD_DrawPixel(x, y, BLUE);
-                } else {
-                    LCD_DrawPixel(x, y, GREEN);
-                }
+                //} else {
+                //    LCD_DrawPixel(x, y, GREEN);
+                //}
             }
         }
         //Righty top triangle
         for (x=projection.v(5).x; x < projection.v(6).x; ++x){
             for (y=projection.v(5).y; y < projection.v(6).y; ++y){
-                if ((projection.v(6).x-projection.v(5).x)*y <
-                    (projection.v(6).y-projection.v(5).y)*x) {
+                //if ((projection.v(6).x-projection.v(5).x)*y <
+                //    (projection.v(6).y-projection.v(5).y)*x) {
                     LCD_DrawPixel(x, y, BLUE);
-                } else {
+                //} else {
                     LCD_DrawPixel(x, y, GREEN);
-                }
+                //}
             }
         }
         //Draw left face
