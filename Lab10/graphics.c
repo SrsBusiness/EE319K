@@ -79,12 +79,11 @@ void erase_cubes(){
     }
 }
 /*
-void render_cube(cube object, unsigned short color){
+void render_cube_wireframe(cube object, unsigned short color){
     projected_cube p_temp;
     for(int i = 0; i < 8; i++){
         p_temp.vertices[j] = project(object.vertices[j]);
     }
-
     LCD_DrawLine(p_temp.v(0).x, p_temp.v(0).y, 
                  p_temp.v(1).x, p_temp.v(1).y, color);
     LCD_DrawLine(p_temp.v(0).x, p_temp.v(0).y, 
@@ -114,11 +113,15 @@ void render_cube(cube object, unsigned short color){
                  p_temp.v(6).x, p_temp.v(6).y, color);
 }
 
+void render_cube_fill(cube object, unsigned short color){
+;
+}
+
 //Clear all the cubes using render_cubes(BLACK)
-void render_cubes(unsigned short color){
-    projected_cube temp;
+void render_cubes(unsigned short outline, unsigned short fill){
     for(int i = 0; i < num_cubes; i++){
-        render_cube(cubes[i], color);
+        render_cube_fill(cubes[i], outline);
+        render_cube_wireframe(cubes[i], outline);
     }
 }
 */
