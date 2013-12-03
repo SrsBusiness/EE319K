@@ -19,6 +19,7 @@ void render_cube_wireframe(projected_cube, unsigned short);
 void render_cubes(unsigned short, unsigned short);
 
 void render_cube_wireframe(projected_cube projection, unsigned short color){
+    /*
     LCD_DrawLine(projection.v(0).x, projection.v(0).y, 
                  projection.v(1).x, projection.v(1).y, color);
     LCD_DrawLine(projection.v(0).x, projection.v(0).y, 
@@ -46,9 +47,11 @@ void render_cube_wireframe(projected_cube projection, unsigned short color){
                  projection.v(4).x, projection.v(4).y, color);
     LCD_DrawLine(projection.v(7).x, projection.v(7).y, 
                  projection.v(6).x, projection.v(6).y, color);
+*/
 }
 
 void render_cube_fill(projected_cube projection, unsigned short color){
+   /* 
     int x, y;
     //Fill front face
     LCD_DrawFilledRect(projection.v(7).x, projection.v(7).y,
@@ -144,6 +147,7 @@ void render_cube_fill(projected_cube projection, unsigned short color){
     } else {
         LCD_DrawFilledRect(0, 0, 30, 30, PINK);
     }
+    */
 }
 
 //Clear all the cubes using render_cubes(BLACK)
@@ -151,9 +155,9 @@ void render_cubes(unsigned short outline, unsigned short fill){
     projected_cube projection;
     for(int i = 0; i < num_cubes; i++){
         for(int j = 0; j < 8; j++){
-            projection.v(j) = project(cubes[i].v(j));
+            projection.vertices[j] = project(cubes[i].vertices[j]);
         }
-        render_cube_fill(projection, fill);
+        //render_cube_fill(projection, fill);
         render_cube_wireframe(projection, outline);
     }
 }

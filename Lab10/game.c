@@ -78,3 +78,14 @@ int collision(){
     }
     return 0;
 }
+
+cube new_cube(point origin, unsigned short color){
+    return (cube){{origin, {origin.x + CUBE_SIZE, origin.y, origin.z},
+        {origin.x + CUBE_SIZE, origin.y - CUBE_SIZE, origin.z},
+        {origin.x, origin.y - CUBE_SIZE, origin.z}, 
+        {origin.x, origin.y, origin.z + CUBE_SIZE}, 
+        {origin.x + CUBE_SIZE, origin.y, origin.z + CUBE_SIZE},
+        {origin.x + CUBE_SIZE, origin.y - CUBE_SIZE, origin.z + CUBE_SIZE},
+        {origin.x, origin.y - CUBE_SIZE, origin.z + CUBE_SIZE}}
+    };
+}

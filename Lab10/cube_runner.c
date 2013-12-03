@@ -16,16 +16,16 @@ int main(){
     cube temp;
     add_cube(temp);
     
-    //while(1){
-       // render_cubes(BLACK, 0xF800); 
-        //render_cubes(WHITE, WHITE);
-       cubes[0] = (cube){{{0, x + i / 10 + 100 + 200, -239}, {50, x + i / 10 + 100 + 200, -239},
+    while(1){
+        render_cubes(BLACK, 0xF800); 
+        render_cubes(WHITE, WHITE);
+        cubes[0] = (cube){{{0, x + i / 10 + 100 + 200, -239}, {50, x + i / 10 + 100 + 200, -239},
                 {50, x + i / 10 + 50 + 200, -239},{0, x + i / 10 + 50 + 200, -239}, 
                 {0, x + i / 10 + 100 + 200, 50 - 239}, {50, x + i / 10 + 100 + 200, 50 - 239},
                 {50, x + i / 10 + 50 + 200, 50 - 239}, {0, x + i / 10 + 50 + 200, 50 - 239}}, 0 };    
         render_cubes(BLACK, 0xF800);
         draw_player();
-        //i++;
-    //}
+        i++;
+    }
     return 0;
 }
