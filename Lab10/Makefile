@@ -74,7 +74,7 @@ ${COMPILER}/cube_runner.axf: ${COMPILER}/uartstdio.o
 ${COMPILER}/cube_runner.axf: ${COMPILER}/LCD.o
 ${COMPILER}/cube_runner.axf: ${COMPILER}/SSD2118.o
 ${COMPILER}/cube_runner.axf: ${COMPILER}/graphics.o
-#${COMPILER}/cube_runner.axf: ${COMPILER}/interrupts.o
+${COMPILER}/cube_runner.axf: ${COMPILER}/interrupts.o
 ${COMPILER}/cube_runner.axf: ${COMPILER}/PLL.o
 ${COMPILER}/cube_runner.axf: ${COMPILER}/game.o
 

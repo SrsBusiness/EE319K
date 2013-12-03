@@ -235,8 +235,8 @@ void LCD_DrawPixelRGB(unsigned short x, unsigned short y, unsigned char r,
 // - Draws a line using the Bresenham line algrorithm from
 //   http://rosettacode.org/wiki/Bitmap/Bresenham%27s_line_algorithm
 // ********************************************************
-void LCD_DrawLine(unsigned short startX, unsigned short startY, 
-        unsigned short endX, unsigned short endY, unsigned short color);
+void LCD_DrawLine(short, short, 
+        short, short, unsigned short);
 
 // ************** LCD_DrawRect ****************************
 // - Draws a rectangle, top left corner at (x,y)

@@ -22,7 +22,7 @@ pixel project(point cube){
     LCD_OutChar('\n');
     */
     return (pixel){(short)(temp.x * 200 / temp.y + 159), 
-        (short)(temp.z * 200 / temp.y * -1)};
+        (short)(temp.z * 200 / temp.y * -1 + 119)};
 }
 
 
