@@ -56,17 +56,18 @@ void render_cube_fill(projected_cube projection, unsigned short color){
                        projection.v(2).y-projection.v(7).y, color);
     //Fill top face and side face
     LCD_DrawFilledRect(projection.v(4).x, projection.v(4).y,
-                       projection.v(5).x-projection.v(4).x,
+                       ((projection.v(5).x<projection.v(6).x)?
+                        projection.v(5).x:projection.v(6).x)-projection.v(4).x,
                        projection.v(7).y-projection.v(4).y, BURNTORANGE);
     //If the cube is on the left or middle
     if (projection.v(7).x < projection.v(4).x) {
         //Lefty top triangle
         for (x=projection.v(7).x; x < projection.v(4).x; ++x){
             for (y=projection.v(4).y; y < projection.v(7).y; ++y){
-                if ((projection.v(4).x-projection.v(7).x)*y <
-                    (projection.v(7).y-projection.v(4).y)*x) {
+                //if ((projection.v(4).x-projection.v(7).x)*y <
+                //    (projection.v(7).y-projection.v(4).y)*x) {
                     LCD_DrawPixel(x, y, BLUE);
-                }
+                //}
             }
         }
         if (projection.v(6).x < projection.v(5).x) {
