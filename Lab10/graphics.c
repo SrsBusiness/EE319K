@@ -4,7 +4,13 @@
 
 #define WIDTH 320 
 #define HEIGHT 240
+#define BLACK 0x0000
+#define WHITE 0xFFFF
+
+#define v(a) vertices[a]
+
 #define swap(a, b) do{int i = a; a = b; b = i;} while(0)
+
 void print_int(int, char, char);
 void render_cubes(){
     projected_cube temp;
@@ -72,6 +78,51 @@ void erase_cubes(){
                 temp.vertices[7].x, temp.vertices[7].y, 0xFFFF);
     }
 }
+/*
+void render_cube(cube object, unsigned short color){
+    projected_cube p_temp;
+    for(int i = 0; i < 8; i++){
+        p_temp.vertices[j] = project(object.vertices[j]);
+    }
+
+    LCD_DrawLine(p_temp.v(0).x, p_temp.v(0).y, 
+                 p_temp.v(1).x, p_temp.v(1).y, color);
+    LCD_DrawLine(p_temp.v(0).x, p_temp.v(0).y, 
+                 p_temp.v(3).x, p_temp.v(3).y, color);
+    LCD_DrawLine(p_temp.v(0).x, p_temp.v(0).y, 
+                 p_temp.v(4).x, p_temp.v(4).y, color);
+
+    LCD_DrawLine(p_temp.v(2).x, p_temp.v(2).y, 
+                 p_temp.v(1).x, p_temp.v(1).y, color);
+    LCD_DrawLine(p_temp.v(2).x, p_temp.v(2).y, 
+                 p_temp.v(3).x, p_temp.v(3).y, color);
+    LCD_DrawLine(p_temp.v(2).x, p_temp.v(2).y, 
+                 p_temp.v(6).x, p_temp.v(6).y, color);
+   
+    LCD_DrawLine(p_temp.v(5).x, p_temp.v(5).y, 
+                 p_temp.v(1).x, p_temp.v(1).y, color);
+    LCD_DrawLine(p_temp.v(5).x, p_temp.v(5).y, 
+                 p_temp.v(4).x, p_temp.v(4).y, color);
+    LCD_DrawLine(p_temp.v(5).x, p_temp.v(5).y, 
+                 p_temp.v(6).x, p_temp.v(6).y, color);
+   
+    LCD_DrawLine(p_temp.v(7).x, p_temp.v(7).y, 
+                 p_temp.v(3).x, p_temp.v(3).y, color);
+    LCD_DrawLine(p_temp.v(7).x, p_temp.v(7).y, 
+                 p_temp.v(4).x, p_temp.v(4).y, color);
+    LCD_DrawLine(p_temp.v(7).x, p_temp.v(7).y, 
+                 p_temp.v(6).x, p_temp.v(6).y, color);
+}
+
+//Clear all the cubes using render_cubes(BLACK)
+void render_cubes(unsigned short color){
+    projected_cube temp;
+    for(int i = 0; i < num_cubes; i++){
+        render_cube(cubes[i], color);
+    }
+}
+*/
+
 void print_int(int i, char x, char y){
     LCD_Goto(x, y);
     out_int(i);
