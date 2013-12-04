@@ -1,8 +1,7 @@
 #include "game.h"
 #include "LCD.h"
 
-#define MAX_Y 200
-#define CENTER_X 150
+#define MAX_Y 150
 
 cube cubes[MAX_CUBES];
 unsigned char num_cubes = 0;
@@ -55,7 +54,7 @@ void clean_cubes(){
     int i = 0, j = 0;
     int n = num_cubes;
     while(i < n) {
-        if (cubes[i].vertices[4].y < focal_point.y + MAX_Y){
+        if (cubes[i].vertices[0].y < focal_point.y + MAX_Y){
             num_cubes--;
         } else {
             cubes[j++] = cubes[i];
