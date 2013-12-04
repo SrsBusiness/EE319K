@@ -35,13 +35,13 @@ void Timer0A_Init(unsigned long period){
         TIMER0_ICR_R = 0x01;
         TIMER0_IMR_R |= 0x01;
         NVIC_PRI4_R = (NVIC_PRI4_R & 0x00FFFFFF)|0x40000000;            //priority 4
-        NVIC_EN0_R |= NVIC_EN0_INT19;
+        NVIC_EN0_R |= 1<<19;
         TIMER0_CTL_R |= 0x01;
 }
 
 void Timer0A_Handler(void) {
 		TIMER0_ICR_R = 0x00000001;   // acknowledge timer2A timeout
-	
+		
 }
 
 void timer2_init(unsigned long period){ 
