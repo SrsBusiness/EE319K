@@ -4,6 +4,8 @@
 #define FOCAL_LENGTH 200
 #define MIN_INT -2147483648
 
+#define v(a) vertices[a]
+
 // points for 3D-plane
 struct point{
     int x, y, z;

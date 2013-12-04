@@ -5,7 +5,6 @@
 #define WIDTH 320 
 #define HEIGHT 240
 
-#define v(a) vertices[a]
 #define swap(a, b) do{int i = a; a = b; b = i;} while(0)
 
 void print_int(int, char, char);

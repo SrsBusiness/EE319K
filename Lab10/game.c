@@ -2,6 +2,7 @@
 #include "LCD.h"
 
 #define MAX_Z 9001
+#define CENTER_X 150
 
 cube cubes[MAX_CUBES];
 unsigned char num_cubes = 0;
@@ -23,14 +24,41 @@ void vector(point start, point end, point *vector){
 // Adds cube to game.
 //  If overflow: return -1.
 //  Otherwise: return number of cubes in the world currently.
-// 
-int add_cube(cube cube){
-    if(num_cubes == MAX_CUBES)
-        return -1;
+// Note: Uses painter's algorithm to order cubes so rendering is simple.
+int add_cube(cube c){
+    int i = 0, dist;
+    cube temp_cube;
+    //Calculate given cube's dist from center.
+    int c_dist = c.v(0).x - CENTER_X;
+    if (c_dist < 0) { c_dist *= -1; }
+    //Cube limit
+    if(num_cubes == MAX_CUBES) { return -1; }
 
-    cubes[num_cubes++] = cube;
-
-    return num_cubes;
+    //Find correct spot for cube
+    while(i < num_cubes) {
+        //If c is less forward, move on.
+        if (cubes[i].v(0).z < c.v(0).z){
+            i++;
+        } else {
+            //Calculate distance from center
+            dist = cubes[i].v(0).x - CENTER_X; if (dist < 0) { dist *= -1; }
+            //If c is more centered and c.z == cubes[i].z, move on.
+            if ((cubes[i].v(0).z == c.v(0).z) &&
+                (c_dist > dist)) {
+                i++;
+            } else {
+                break;
+            }
+        }
+    }
+    //Rotate to make a spot for the cube
+    for(int j = num_cubes-1; j > i; --j){
+        cubes[j] = cubes[j-1];
+    }
+    //Insert cube
+    cubes[i] = c;
+    //Update cube count
+    return ++num_cubes;
 }
 
 // Removes cube from game.
