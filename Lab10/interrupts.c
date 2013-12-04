@@ -5,7 +5,7 @@
 
 void systick_init(){
     NVIC_ST_CTRL_R = 0;  //disable systick during initialization
-    NVIC_ST_RELOAD_R = 0x100000;    //maximum reload value
+    NVIC_ST_RELOAD_R = 0x1e8480;    //maximum reload value
     //NVIC_ST_RELOAD_R = 0xFFFFFF;    //maximum reload value
     NVIC_ST_CURRENT_R = 0;   //any write to current clears it
     NVIC_ST_CTRL_R = 7;  //enable systick with core clock
@@ -18,6 +18,7 @@ void systick_handler(){
     render_cubes(WHITE, WHITE);
     focal_point.y += dy;
     focal_point.x += dx;
+		clean_cubes();
     render_cubes(BLACK, RED);
     draw_player();
 }

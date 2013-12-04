@@ -1,4 +1,4 @@
-#define MAX_CUBES 30
+#define MAX_CUBES 100
 
 #define CUBE_SIZE 40
 #define FOCAL_LENGTH 200

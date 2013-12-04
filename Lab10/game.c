@@ -7,7 +7,7 @@
 cube cubes[MAX_CUBES];
 unsigned char num_cubes = 0;
 char dx = 0;
-char dy = 1;
+char dy = 10;
 unsigned char speed = 1;// 1 - 10
 
 point focal_point = {159, MIN_INT, -119};
@@ -53,9 +53,9 @@ int remove_cube(cube cube){
 // Cleans cubes with z value > MAX_Z from game.
 void clean_cubes(){
     int i = 0, j = 0;
-    int n = 0; //num_cubes;
+    int n = num_cubes;
     while(i < n) {
-        if (cubes[i].vertices[2].y > MAX_Y){
+        if (cubes[i].vertices[4].y < focal_point.y + MAX_Y){
             num_cubes--;
         } else {
             cubes[j++] = cubes[i];
