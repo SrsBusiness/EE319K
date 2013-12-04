@@ -12,19 +12,41 @@ void systick_init(){
 }
 
 void systick_handler(){
-    //out_int(num_cubes);
-    //LCD_DrawLine();
-    // LCD_ColorFill(0xFFFF);
-		if (tick % (CUBE_SIZE/2) == 0) {
-				random_wave();
-		}
+    if (tick % (CUBE_SIZE/2) == 0) {
+        random_wave();
+    }
     render_cubes(WHITE, WHITE);
     focal_point.y += dy;
     focal_point.x += dx;
-	clean_cubes();
+    clean_cubes();
     render_cubes(BLACK, RED);
+    /*
+    point fp_old = focal_point;
+    point fp_new = focal_point;
+    fp_new.y += dy;
+    fp_new.x += dx;
+    projected_cube projection;
+    pixel temp;
+    for(int i = 0; i < num_cubes; ++i) {
+        for(int j = 0; j < 8; j++){
+            project(cubes[i].v(j), &temp);
+            projection.v(j).x = temp.x;
+            projection.v(j).y = temp.y;
+        }
+        focal_point = fp_old;
+        render_cube_wireframe_alpha(projection, WHITE);
+        focal_point = fp_new;
+        for(int j = 0; j < 8; j++){
+            project(cubes[i].v(j), &temp);
+            projection.v(j).x = temp.x;
+            projection.v(j).y = temp.y;
+        }
+        clean_cubes();
+        render_cube_wireframe_alpha(projection, BLACK);
+    }
+    */
     draw_player();
-		tick++;
+    tick++;
 }
 
 void Timer0A_Init(unsigned long period){
