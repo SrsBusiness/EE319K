@@ -1,13 +1,13 @@
 #include "game.h"
 #include "LCD.h"
 
-#define MAX_Z 9001
+#define MAX_Y 200
 #define CENTER_X 150
 
 cube cubes[MAX_CUBES];
 unsigned char num_cubes = 0;
 char dx = 0;
-char dy = 20;
+char dy = 1;
 unsigned char speed = 1;// 1 - 10
 
 point focal_point = {159, MIN_INT, -119};
@@ -15,7 +15,7 @@ point focal_point = {159, MIN_INT, -119};
 point player[3] = {{152, 15, -239}, {166, 15, -239}, {159, 30, -239}};
 
 // Calculate vector between 2 points
-void vector(point start, point end, point *vector){
+void vector(point start, point end, point *vector) {
     vector -> x = end.x - start.x;
     vector -> y = end.y - start.y;
     vector -> z = end.z - start.z;
@@ -26,39 +26,11 @@ void vector(point start, point end, point *vector){
 //  Otherwise: return number of cubes in the world currently.
 // Note: Uses painter's algorithm to order cubes so rendering is simple.
 int add_cube(cube c){
-    int i = 0, dist;
-    cube temp_cube;
-    //Calculate given cube's dist from center.
-    int c_dist = c.v(0).x - CENTER_X;
-    if (c_dist < 0) { c_dist *= -1; }
     //Cube limit
     if(num_cubes == MAX_CUBES) { return -1; }
-
-    //Find correct spot for cube
-    while(i < num_cubes) {
-        //If c is less forward, move on.
-        if (cubes[i].v(0).z < c.v(0).z){
-            i++;
-        } else {
-            //Calculate distance from center
-            dist = cubes[i].v(0).x - CENTER_X; if (dist < 0) { dist *= -1; }
-            //If c is more centered and c.z == cubes[i].z, move on.
-            if ((cubes[i].v(0).z == c.v(0).z) &&
-                (c_dist > dist)) {
-                i++;
-            } else {
-                break;
-            }
-        }
-    }
-    //Rotate to make a spot for the cube
-    for(int j = num_cubes-1; j > i; --j){
-        cubes[j] = cubes[j-1];
-    }
-    //Insert cube
-    cubes[i] = c;
+    cubes[num_cubes++] = c;
     //Update cube count
-    return ++num_cubes;
+    return num_cubes;
 }
 
 // Removes cube from game.
@@ -81,9 +53,9 @@ int remove_cube(cube cube){
 // Cleans cubes with z value > MAX_Z from game.
 void clean_cubes(){
     int i = 0, j = 0;
-    int n = num_cubes;
-    while(i < n){
-        if (cubes[i].vertices[2].z > MAX_Z){
+    int n = 0; //num_cubes;
+    while(i < n) {
+        if (cubes[i].vertices[2].y > MAX_Y){
             num_cubes--;
         } else {
             cubes[j++] = cubes[i];
@@ -91,6 +63,7 @@ void clean_cubes(){
         i++;
     }
 }
+
 
 // boolean comparison operation on cubes
 int equals(point cube1, point cube2){

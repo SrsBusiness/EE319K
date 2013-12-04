@@ -21,7 +21,6 @@ void render_cube_wireframe_alpha(projected_cube projection, unsigned short color
     
     LCD_DrawLine(projection.v(5).x, projection.v(5).y, projection.v(6).x, projection.v(6).y, color);
     
-    return;
     LCD_DrawLine(projection.v(7).x, projection.v(7).y, projection.v(3).x, projection.v(3).y, color);
     LCD_DrawLine(projection.v(7).x, projection.v(7).y,projection.v(4).x, projection.v(4).y, color);
     LCD_DrawLine(projection.v(7).x, projection.v(7).y, projection.v(6).x, projection.v(6).y, color);
@@ -175,7 +174,7 @@ void render_cubes(unsigned short outline, unsigned short fill){
             projection.v(j).x = temp.x;
             projection.v(j).y = temp.y;
         }
-        //render_cube_fill(projection, fill);
+        // render_cube_fill(projection, fill);
         render_cube_wireframe_alpha(projection, outline);
     }
 }
