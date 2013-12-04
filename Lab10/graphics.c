@@ -2,8 +2,7 @@
 #include "game.h"
 #include "LCD.h"
 
-#define WIDTH 320 
-#define HEIGHT 240
+
 
 #define swap(a, b) do{int i = a; a = b; b = i;} while(0)
 
@@ -223,8 +222,8 @@ void render_cubes(unsigned short outline, unsigned short fill){
 void project(point cube, pixel *projection){
     point temp;
     vector(focal_point, cube, &temp);
-    projection -> x = (short)(temp.x * 200 / temp.y + 159); 
-    projection -> y = (short)(temp.z * 200 / temp.y * -1 + 40);
+    projection -> x = (short)(temp.x * FOCAL_LENGTH / temp.y + 159); 
+    projection -> y = (short)(temp.z * FOCAL_LENGTH / temp.y * -1 + 40);
 }
 
 void draw_player(){

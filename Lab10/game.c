@@ -1,18 +1,20 @@
 #include "game.h"
 #include "LCD.h"
+#include "graphics_tm4c123.h"
 
 #define MAX_Y 50
 
 cube cubes[MAX_CUBES];
 unsigned char num_cubes = 0;
 char dx = 0;
-char dy = 10;
+char dy = 15;
 unsigned char speed = 1;// 1 - 10
 unsigned long tick = 0;
 
-point focal_point = {159, MIN_INT, -119};
+point focal_point = {(WIDTH - 1) / 2, MIN_INT, (1 - HEIGHT) / 2};
 
-point player[3] = {{152, 15, -239}, {166, 15, -239}, {159, 30, -239}};
+//point player[3] = {{152, 15, -239}, {166, 15, -239}, {159, 30, -239}};
+
 
 // Calculate vector between 2 points
 void vector(point start, point end, point *vector) {
@@ -78,9 +80,9 @@ int collision(){
     for(int i = 0; i < num_cubes; i++){
         for(int j = 0; j < 4; j++){
             // positive slope
-            int b0 = focal_point.y + 200 - 5 * (focal_point.x + 7);
+            int b0 = focal_point.y + FOCAL_LENGTH - 5 * (focal_point.x + 7);
             // negative slope
-            int b1 = focal_point.y + 200 + 5 * (focal_point.x + 7);
+            int b1 = focal_point.y + FOCAL_LENGTH + 5 * (focal_point.x + 7);
             if(cubes[i].vertices[j].x * 5 + b0 >= cubes[i].vertices[j].y &&
                     cubes[i].vertices[j].x * -5 + b1 >= cubes[i].vertices[j].y)
                 return 1;
@@ -95,6 +97,7 @@ void random_wave(void) {
 		temp = (point){focal_point.x + (rand()%CUBE_SIZE - 300), focal_point.y + 1200, -239};
 		while (temp.x < 300) {
 				temp.x += rand()%(CUBE_SIZE*3) + CUBE_SIZE;
+				temp.y += (rand() % 2 * CUBE_SIZE) - CUBE_SIZE;	
 				new_cube(temp, 0, &this_cube);
 				add_cube(this_cube);
 		}
