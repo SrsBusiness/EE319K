@@ -1,13 +1,14 @@
 #include "game.h"
 #include "LCD.h"
 
-#define MAX_Y 150
+#define MAX_Y 50
 
 cube cubes[MAX_CUBES];
 unsigned char num_cubes = 0;
 char dx = 0;
 char dy = 10;
 unsigned char speed = 1;// 1 - 10
+unsigned long tick = 0;
 
 point focal_point = {159, MIN_INT, -119};
 
@@ -86,6 +87,17 @@ int collision(){
         }
     }
     return 0;
+}
+
+void random_wave(void) {
+		point temp;
+		cube this_cube;
+		temp = (point){focal_point.x + (rand()%CUBE_SIZE - 300), focal_point.y + 1200, -239};
+		while (temp.x < 300) {
+				temp.x += rand()%(CUBE_SIZE*3) + CUBE_SIZE;
+				new_cube(temp, 0, &this_cube);
+				add_cube(this_cube);
+		}
 }
 
 void new_cube(point base, unsigned short color, cube *new){

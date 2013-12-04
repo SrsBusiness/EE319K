@@ -14,7 +14,7 @@ int main(){
     LCD_ColorFill(0xFFFF);
     cube this_cube;
     point temp;
-    for (int k = 0; k < 20; k++) {
+    for (int k = 0; k < 1; k++) {
         for(int j = 0; j < 5; j++){
             temp = (point){j * 80, focal_point.y + k*1000+400, -239};
             new_cube(temp, 0, &this_cube);
