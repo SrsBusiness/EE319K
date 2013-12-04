@@ -38,14 +38,14 @@ void PortF_Init(void){
 unsigned long Data;      // 12-bit ADC
 unsigned long Position;  // 32-bit fixed-point 0.001 cm
 
-int main_tx	(){
+int main(){
 	PLL_Init();	// Bus clock is 80 MHz
 	PortF_Init();
 	ADC_Init();        // turn on ADC, set channel to 1
 	UART1_Init (); 
 	while(1);
 }
-int main(){	
+int main_rx(){	
 	PLL_Init();        // Bus clock is 80 MHz 
 	PortF_Init();       // turn on ADC, set channel to 1
 	UART1_Init ();

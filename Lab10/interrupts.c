@@ -18,7 +18,7 @@ void systick_handler(){
     render_cubes(WHITE, WHITE);
     focal_point.y += dy;
     focal_point.x += dx;
-		clean_cubes();
+	clean_cubes();
     render_cubes(BLACK, RED);
     draw_player();
 }

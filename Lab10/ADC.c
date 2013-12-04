@@ -22,24 +22,23 @@
 void ADC_Init(void){ 
 	//make it PE2 and channel 1
 	SYSCTL_RCGC2_R |= 0x00000010;   // 1) activate clock for Port E
-	__asm__(
-            "mov r0, r0"
-        );
-        __asm__(
-            "mov r0, r0"
-        );
-        GPIO_PORTE_DIR_R &= ~0x04;      // 2) make PE2 input
+	__nop();
+	__nop();
+	__nop();
+    __nop();
+	__nop();
+	__nop();
+	GPIO_PORTE_DIR_R &= ~0x04;      // 2) make PE2 input
 	GPIO_PORTE_AFSEL_R |= 0x04;     // 3) enable alt funct on PE2
 	GPIO_PORTE_DEN_R &= ~0x04;      // 4) disable digital I/O on PE2
 	GPIO_PORTE_AMSEL_R |= 0x04;     // 5) enable analog funct on PE2
 	SYSCTL_RCGC0_R |= 0x00010000;   // 6) activate ADC0 
-	__asm__(
-            "mov r0, r0"
-        );
-        SYSCTL_RCGC0_R &= ~0x00000300;  // 7) 125kHz ADC conversion speed 
-	__asm__(
-            "mov r0, r0"
-        );
+	__nop();
+	__nop();
+	__nop();
+	__nop();
+	__nop();
+	__nop();
 	ADC0_SSPRI_R = 0x0123;          // 8) Seq 3 is highest priority
 	ADC0_ACTSS_R &= ~0x0008;        // 9) disable sample sequencer 3
 	ADC0_EMUX_R &= ~0xF000;         // 10) seq3 is software trigger

@@ -37,12 +37,13 @@ extern unsigned char speed;
 // projects the cube onto the projection plane through the focal point
 
 
+
 void vector(point start, point end, point *);
 
 int collision();
 
 int add_cube(cube);
-int remove_cube(cube);
+void clean_cubes();
 
 void new_cube(point, unsigned short, cube *);
 //int equals(cube, cube);
