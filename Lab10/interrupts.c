@@ -15,12 +15,16 @@ void systick_handler(){
     //out_int(num_cubes);
     //LCD_DrawLine();
     // LCD_ColorFill(0xFFFF);
+		if (tick % (CUBE_SIZE/2) == 0) {
+				random_wave();
+		}
     render_cubes(WHITE, WHITE);
     focal_point.y += dy;
     focal_point.x += dx;
 	clean_cubes();
     render_cubes(BLACK, RED);
     draw_player();
+		tick++;
 }
 
 void Timer0A_Init(unsigned long period){
