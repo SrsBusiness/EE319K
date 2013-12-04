@@ -10,6 +10,7 @@ void LCD_GPIOInit(){
     SYSCTL_RCGC2_R |= 0x03;
     __asm__(
         "mov r0, r0\n\t"
+        "mov r0, r0\n\t"
         "mov r0, r0"
     );
     GPIO_PORTA_DEN_R |= 0xF0;
@@ -29,6 +30,7 @@ void LCD_WriteCommand(unsigned char command){
     GPIO_PORTA_DATA_R = 0x10;
     __asm__(
         "mov r0, r0\n\t"
+        "mov r0, r0\n\t"
         "mov r0, r0"
     );
     GPIO_PORTA_DATA_R = 0xF0;
@@ -41,6 +43,7 @@ void LCD_WriteData(unsigned short data){
     GPIO_PORTB_DATA_R = data & 0x00FF;
     GPIO_PORTA_DATA_R = 0x50;
     __asm__(
+        "mov r0, r0\n\t"
         "mov r0, r0\n\t"
         "mov r0, r0"
     );

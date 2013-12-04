@@ -6,7 +6,7 @@
 cube cubes[MAX_CUBES];
 unsigned char num_cubes = 0;
 char dx = 0;
-char dy = 1;
+char dy = 20;
 unsigned char speed = 1;// 1 - 10
 
 point focal_point = {159, MIN_INT, -119};
