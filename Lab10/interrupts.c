@@ -5,7 +5,7 @@
 
 void systick_init(){
     NVIC_ST_CTRL_R = 0;  //disable systick during initialization
-    NVIC_ST_RELOAD_R = 0x1e8480;    //maximum reload value
+    NVIC_ST_RELOAD_R = 0x28b0aa;    //maximum reload value
     //NVIC_ST_RELOAD_R = 0xFFFFFF;    //maximum reload value
     NVIC_ST_CURRENT_R = 0;   //any write to current clears it
     NVIC_ST_CTRL_R = 7;  //enable systick with core clock
@@ -21,6 +21,27 @@ void systick_handler(){
 		clean_cubes();
     render_cubes(BLACK, RED);
     draw_player();
+}
+
+void Timer0A_Init(unsigned long period){
+        SYSCTL_RCGC1_R |= SYSCTL_RCGC1_TIMER0;
+        __nop();
+        __nop();
+        TIMER0_CTL_R &= ~0x01;
+        TIMER0_CFG_R = 0x04;
+        TIMER0_TAMR_R = 0x02;
+        TIMER0_TAILR_R = period;
+        TIMER0_TAPR_R = 0;
+        TIMER0_ICR_R = 0x01;
+        TIMER0_IMR_R |= 0x01;
+        NVIC_PRI4_R = (NVIC_PRI4_R & 0x00FFFFFF)|0x40000000;            //priority 4
+        NVIC_EN0_R |= NVIC_EN0_INT19;
+        TIMER0_CTL_R |= 0x01;
+}
+
+void Timer0A_Handler(void) {
+		TIMER0_ICR_R = 0x00000001;   // acknowledge timer2A timeout
+	
 }
 
 void timer2_init(unsigned long period){ 
