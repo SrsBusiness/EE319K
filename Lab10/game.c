@@ -8,7 +8,7 @@ cube cubes[MAX_CUBES];
 unsigned char num_cubes = 0;
 char dx = 0;
 char dy = 15;
-unsigned char speed = 1;// 1 - 10
+unsigned char speed = 5;// 1 - 10
 unsigned long tick = 0;
 
 point focal_point = {(WIDTH - 1) / 2, MIN_INT, (1 - HEIGHT) / 2};

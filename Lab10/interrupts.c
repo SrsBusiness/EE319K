@@ -3,6 +3,7 @@
 #include "LCD.h"
 #include "tm4c123gh6pm.h"
 
+unsigned int pe_prev = 0;
 void systick_init(){
     NVIC_ST_CTRL_R = 0;  //disable systick during initialization
     NVIC_ST_RELOAD_R = 0x28b0aa;    //maximum reload value
@@ -76,19 +77,40 @@ void timer2a_handler(){
     // focal_point.y += dy;
     // focal_point.x += dx;
 }
-
-void right_button_pressed(){
-    if(dx == speed)
-        dx = 0;
-    else
-        dx = speed;
+void button_init(){
+	SYSCTL_RCGC2_R |= 0x10;
+	__nop();
+	__nop();
+	__nop();
+	GPIO_PORTE_DIR_R &= ~0x03;
+	GPIO_PORTE_AFSEL_R &= ~0x03;
+	GPIO_PORTE_DEN_R |= 0x03;
+	GPIO_PORTE_AMSEL_R &= ~0x03;
+	GPIO_PORTE_IS_R &= ~0x03;
+	GPIO_PORTE_IBE_R |= 0x03;
+	GPIO_PORTE_ICR_R = 0x03;
+	GPIO_PORTE_IM_R |= 0x03;
+	NVIC_PRI1_R = (NVIC_PRI1_R & 0xFFFFFF00) | 0x00000000;
+	NVIC_EN0_R = 0x10;
 }
 
-void left_button_pressed(){
-    if(dx == -1 * speed)
-        dx = 0;
-    else
-        dx = -1 * speed;
+void button_pressed(){
+	GPIO_PORTE_ICR_R = 0x03;
+	unsigned int edges = pe_prev ^ GPIO_PORTE_DATA_R;
+	if(edges == 1){
+		if(dx == speed)
+			dx = 0;
+		else
+			dx = speed;
+	}else if(edges == 2){
+		if(dx == -1 * speed)
+			dx = 0;
+		else
+			dx = -1 * speed;
+	}else if(edges == 3){
+		dx = 0;
+	}
+	pe_prev = GPIO_PORTE_DATA_R;
 }
 
 void change_speed(){

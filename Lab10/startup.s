@@ -107,7 +107,7 @@ __Vectors
         DCD     GPIOPortB_Handler           ; GPIO Port B
         DCD     GPIOPortC_Handler           ; GPIO Port C
         DCD     GPIOPortD_Handler           ; GPIO Port D
-        DCD     GPIOPortE_Handler           ; GPIO Port E
+        DCD     button_pressed           ; GPIO Port E
         DCD     UART0_Handler               ; UART0 Rx and Tx
         DCD     UART1_Handler               ; UART1 Rx and Tx
         DCD     SSI0_Handler                ; SSI0 Rx and Tx
@@ -340,7 +340,7 @@ IntDefaultHandler\
                 EXPORT  GPIOPortB_Handler         [WEAK]
                 EXPORT  GPIOPortC_Handler         [WEAK]
                 EXPORT  GPIOPortD_Handler         [WEAK]
-                EXPORT  GPIOPortE_Handler         [WEAK]
+                EXPORT  button_pressed         [WEAK]
                 EXPORT  UART0_Handler             [WEAK]
                 EXPORT  UART1_Handler             [WEAK]
                 EXPORT  SSI0_Handler              [WEAK]
@@ -455,7 +455,7 @@ GPIOPortA_Handler
 GPIOPortB_Handler
 GPIOPortC_Handler
 GPIOPortD_Handler
-GPIOPortE_Handler
+button_pressed
 UART0_Handler
 UART1_Handler
 SSI0_Handler

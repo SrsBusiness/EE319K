@@ -21,7 +21,9 @@ int main(){
             add_cube(this_cube);
         }
     }
+	button_init();
     systick_init();
+	EnableInterrupts();
     // timer2_init(0x145855);
     while(1);
     //render_cubes(BLACK, RED);

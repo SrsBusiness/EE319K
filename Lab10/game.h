@@ -3,7 +3,7 @@
 #define CUBE_SIZE 30
 #define FOCAL_LENGTH 400
 #define MIN_INT -2147483648
-
+#define MAX_SPEED 10
 #define v(a) vertices[a]
 
 // points for 3D-plane
