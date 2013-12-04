@@ -214,8 +214,8 @@ void render_cubes(unsigned short outline, unsigned short fill){
             projection.v(j).x = temp.x;
             projection.v(j).y = temp.y;
         }
-        render_cube_fill(projection, fill);
-        render_cube_wireframe(projection, outline);
+        // render_cube_fill(projection, fill);
+        render_cube_wireframe_alpha(projection, outline);
     }
 }
 

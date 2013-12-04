@@ -14,12 +14,15 @@ int main(){
     LCD_ColorFill(0xFFFF);
     cube this_cube;
     point temp;
-    for(int j = 0; j < 2; j++){
-        temp = (point){j * 80, focal_point.y + 400, -239};
-        new_cube(temp, 0, &this_cube);
-        add_cube(this_cube);
+    for (int k = 0; k < 20; k++) {
+        for(int j = 0; j < 5; j++){
+            temp = (point){j * 80, focal_point.y + k*1000+400, -239};
+            new_cube(temp, 0, &this_cube);
+            add_cube(this_cube);
+        }
     }
-    timer2_init(0x145855);
+    systick_init();
+    // timer2_init(0x145855);
     while(1);
     //render_cubes(BLACK, RED);
     

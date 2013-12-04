@@ -5,7 +5,7 @@
 
 void systick_init(){
     NVIC_ST_CTRL_R = 0;  //disable systick during initialization
-    NVIC_ST_RELOAD_R = 0xFFFFFF;    //maximum reload value
+    NVIC_ST_RELOAD_R = 0x1e8480;    //maximum reload value
     //NVIC_ST_RELOAD_R = 0xFFFFFF;    //maximum reload value
     NVIC_ST_CURRENT_R = 0;   //any write to current clears it
     NVIC_ST_CTRL_R = 7;  //enable systick with core clock
@@ -14,6 +14,13 @@ void systick_init(){
 void systick_handler(){
     //out_int(num_cubes);
     //LCD_DrawLine();
+    // LCD_ColorFill(0xFFFF);
+    render_cubes(WHITE, WHITE);
+    focal_point.y += dy;
+    focal_point.x += dx;
+		clean_cubes();
+    render_cubes(BLACK, RED);
+    draw_player();
 }
 
 void timer2_init(unsigned long period){ 
@@ -36,11 +43,13 @@ void timer2_init(unsigned long period){
 
 void timer2a_handler(){ 
     TIMER2_ICR_R = 0x00000001;   // acknowledge timer2A timeout
-    render_cubes(GREEN, RED);
-    draw_player();
+    // LCD_ColorFill(0xFFFF);
+    // render_cubes(BLACK, RED);
+    // render_cubes(WHITE, RED);
+    // draw_player();
     //render_cubes(WHITE, WHITE);
-    focal_point.y += dy;
-    focal_point.x += dx;
+    // focal_point.y += dy;
+    // focal_point.x += dx;
 }
 
 void right_button_pressed(){
