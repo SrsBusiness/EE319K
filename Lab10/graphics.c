@@ -6,6 +6,8 @@
 
 #define swap(a, b) do{int i = a; a = b; b = i;} while(0)
 
+char render = 0;
+
 void print_int(int, char, char);
 void project(point, pixel *);
 
@@ -226,10 +228,21 @@ void project(point cube, pixel *projection){
     projection -> y = (short)(temp.z * FOCAL_LENGTH / temp.y * -1 + 40);
 }
 
+//point player[3] = {{focal_point.x - 7, 200 + focal_point.y, -239}, 
+//{focal_point.x + 7, 200 + focal_point.y, -239}, 
+//{focal_point.x, 203 + focal_point.y, -239}};
+
 void draw_player(){
-    LCD_DrawLine(152, 231, 166, 231, 0);
-    LCD_DrawLine(152, 231, 159, 224, 0);
-    LCD_DrawLine(166, 231, 159, 224, 0);
+	point p1 = {focal_point.x - 5, FOCAL_LENGTH + focal_point.y - 150, -239};
+	point p2 = {focal_point.x + 5, FOCAL_LENGTH + focal_point.y - 150, -239};
+	point p3 = {focal_point.x, 15 + FOCAL_LENGTH + focal_point.y - 150, -239};
+	pixel pixel1, pixel2, pixel3;
+	project(p1, &pixel1);
+    project(p2, &pixel2);
+	project(p3, &pixel3);
+	LCD_DrawLine(pixel1.x, pixel1.y, pixel2.x, pixel2.y, GREEN);
+    LCD_DrawLine(pixel1.x, pixel1.y, pixel3.x, pixel3.y, GREEN);
+    LCD_DrawLine(pixel2.x, pixel2.y, pixel3.x, pixel3.y, GREEN);
 }
 
 void print_int(int i, char x, char y){

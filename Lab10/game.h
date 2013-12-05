@@ -2,7 +2,7 @@
 
 #define CUBE_SIZE 30
 #define FOCAL_LENGTH 400
-#define MIN_INT -2147483648
+#define MIN_INT -1073741824
 #define MAX_SPEED 10
 #define v(a) vertices[a]
 
@@ -26,7 +26,7 @@ struct projected_cube{
 
 extern cube cubes[]; // array of cube vertices
 extern unsigned char num_cubes;
-
+extern char game_over;
 // projection plane is plane where y = focal_point.y + FOCAL_LENGTH
 // z is important for rendering, but not useful for the purpose of
 // gameplay

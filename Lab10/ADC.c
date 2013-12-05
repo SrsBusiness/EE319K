@@ -25,14 +25,21 @@ void ADC_Init(void){
 	__nop();
 	__nop();
 	__nop();
-    __nop();
 	__nop();
 	__nop();
-	GPIO_PORTE_DIR_R &= ~0x04;      // 2) make PE2 input
+	__nop();
+        GPIO_PORTE_DIR_R &= ~0x04;      // 2) make PE2 input
 	GPIO_PORTE_AFSEL_R |= 0x04;     // 3) enable alt funct on PE2
 	GPIO_PORTE_DEN_R &= ~0x04;      // 4) disable digital I/O on PE2
 	GPIO_PORTE_AMSEL_R |= 0x04;     // 5) enable analog funct on PE2
 	SYSCTL_RCGC0_R |= 0x00010000;   // 6) activate ADC0 
+	__nop();
+	__nop();
+	__nop();
+	__nop();
+	__nop();
+	__nop();
+	SYSCTL_RCGC0_R &= ~0x00000300;  // 7) 125kHz ADC conversion speed 
 	__nop();
 	__nop();
 	__nop();

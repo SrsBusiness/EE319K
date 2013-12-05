@@ -161,10 +161,11 @@
             <UseTargetDll>1</UseTargetDll>
             <UseExternalTool>0</UseExternalTool>
             <RunIndependent>0</RunIndependent>
-            <UpdateFlashBeforeDebugging>0</UpdateFlashBeforeDebugging>
+            <UpdateFlashBeforeDebugging>1</UpdateFlashBeforeDebugging>
             <Capability>1</Capability>
             <DriverSelection>4097</DriverSelection>
           </Flash1>
+          <bUseTDR>1</bUseTDR>
           <Flash2>BIN\lmidk-agdi.dll</Flash2>
           <Flash3>"" ()</Flash3>
           <Flash4></Flash4>
@@ -347,7 +348,7 @@
             <uThumb>0</uThumb>
             <uSurpInc>0</uSurpInc>
             <VariousControls>
-              <MiscControls></MiscControls>
+              <MiscControls>-c99</MiscControls>
               <Define></Define>
               <Undefine></Undefine>
               <IncludePath>..;..\..\..;..\inc;..\driverlib</IncludePath>
@@ -392,29 +393,9 @@
           <GroupName>Source Code</GroupName>
           <Files>
             <File>
-              <FileName>main.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\main.c</FilePath>
-            </File>
-            <File>
-              <FileName>random.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\random.c</FilePath>
-            </File>
-            <File>
               <FileName>Startup.s</FileName>
               <FileType>2</FileType>
               <FilePath>.\Startup.s</FilePath>
-            </File>
-            <File>
-              <FileName>rit128x96x4.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\drivers\rit128x96x4.c</FilePath>
-            </File>
-            <File>
-              <FileName>SysTick.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\SysTick.c</FilePath>
             </File>
             <File>
               <FileName>PLL.c</FileName>
@@ -422,49 +403,74 @@
               <FilePath>.\PLL.c</FilePath>
             </File>
             <File>
-              <FileName>ADCDriver.c</FileName>
+              <FileName>ADC.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\ADCDriver.c</FilePath>
+              <FilePath>.\ADC.c</FilePath>
             </File>
             <File>
-              <FileName>Game.c</FileName>
+              <FileName>cube_runner.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\Game.c</FilePath>
+              <FilePath>.\cube_runner.c</FilePath>
             </File>
             <File>
-              <FileName>Graphics.c</FileName>
+              <FileName>game.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\Graphics.c</FilePath>
+              <FilePath>.\game.c</FilePath>
             </File>
             <File>
-              <FileName>Input.c</FileName>
+              <FileName>graphics.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\Input.c</FilePath>
+              <FilePath>.\graphics.c</FilePath>
             </File>
             <File>
-              <FileName>Timer.c</FileName>
+              <FileName>interrupts.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\Timer.c</FilePath>
+              <FilePath>.\interrupts.c</FilePath>
             </File>
             <File>
-              <FileName>Sound.c</FileName>
+              <FileName>LCD.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\Sound.c</FilePath>
+              <FilePath>.\LCD.c</FilePath>
             </File>
             <File>
-              <FileName>DAC.c</FileName>
+              <FileName>SSD2118.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\DAC.c</FilePath>
+              <FilePath>.\SSD2118.c</FilePath>
             </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Library</GroupName>
-          <Files>
             <File>
-              <FileName>driverlib.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\driverlib\rvmdk\driverlib.lib</FilePath>
+              <FileName>game.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\game.h</FilePath>
+            </File>
+            <File>
+              <FileName>graphics.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\graphics.h</FilePath>
+            </File>
+            <File>
+              <FileName>graphics_tm4c123.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\graphics_tm4c123.h</FilePath>
+            </File>
+            <File>
+              <FileName>interrupts.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\interrupts.h</FilePath>
+            </File>
+            <File>
+              <FileName>LCD.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\LCD.h</FilePath>
+            </File>
+            <File>
+              <FileName>PLL.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\PLL.h</FilePath>
+            </File>
+            <File>
+              <FileName>tm4c123gh6pm.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\tm4c123gh6pm.h</FilePath>
             </File>
           </Files>
         </Group>

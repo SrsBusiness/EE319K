@@ -2,31 +2,14 @@
 #include "graphics_tm4c123.h"
 #include "LCD.h"
 #include "tm4c123gh6pm.h"
-
+#include "ADC.h"
+#include "Lab6.h"
 unsigned int pe_prev = 0;
-void systick_init(){
-    NVIC_ST_CTRL_R = 0;  //disable systick during initialization
-    NVIC_ST_RELOAD_R = 0x28b0aa;    //maximum reload value
-    //NVIC_ST_RELOAD_R = 0xFFFFFF;    //maximum reload value
-    NVIC_ST_CURRENT_R = 0;   //any write to current clears it
-    NVIC_ST_CTRL_R = 7;  //enable systick with core clock
-}
+unsigned char current_count = 0; // 
+unsigned char note_total = 0; //
+unsigned int current_note = -1; // index
+unsigned int note = 0; // note value
 
-void systick_handler(){
-    //out_int(num_cubes);
-    //LCD_DrawLine();
-    // LCD_ColorFill(0xFFFF);
-		if (tick % (CUBE_SIZE/2) == 0) {
-				random_wave();
-		}
-    render_cubes(WHITE, WHITE);
-    focal_point.y += dy;
-    focal_point.x += dx;
-	clean_cubes();
-    render_cubes(BLACK, RED);
-    draw_player();
-		tick++;
-}
 
 void Timer0A_Init(unsigned long period){
         SYSCTL_RCGC1_R |= SYSCTL_RCGC1_TIMER0;
@@ -36,7 +19,7 @@ void Timer0A_Init(unsigned long period){
         TIMER0_CFG_R = 0x04;
         TIMER0_TAMR_R = 0x02;
         TIMER0_TAILR_R = period;
-        TIMER0_TAPR_R = 0;
+        TIMER0_TAPR_R = 79;
         TIMER0_ICR_R = 0x01;
         TIMER0_IMR_R |= 0x01;
         NVIC_PRI4_R = (NVIC_PRI4_R & 0x00FFFFFF)|0x40000000;            //priority 4
@@ -45,37 +28,55 @@ void Timer0A_Init(unsigned long period){
 }
 
 void Timer0A_Handler(void) {
-		TIMER0_ICR_R = 0x00000001;   // acknowledge timer2A timeout
-		
+	TIMER0_ICR_R = 0x00000001;   // acknowledge timer2A timeout
+	if (tick % (CUBE_SIZE/2) == 0) {
+			random_wave();
+	}
+	render_cubes(BLACK, BLACK);
+	speed = MAX_SPEED * ADC_In() / 4095;
+	focal_point.y += 2 * speed;
+	focal_point.x += dx;
+	clean_cubes();
+	render_cubes(GREEN, BLACK);
+	draw_player();
+	if(collision()){
+		game_over = 1;
+		TIMER0_CTL_R &= ~0x01;
+	}
+	tick++;
 }
 
-void timer2_init(unsigned long period){ 
+void timer2_init(){ 
     unsigned long volatile delay;
     SYSCTL_RCGCTIMER_R |= 0x04;   // 0) activate timer2
     delay = SYSCTL_RCGCTIMER_R;
     TIMER2_CTL_R = 0x00000000;    // 1) disable timer2A during setup
     TIMER2_CFG_R = 0x00000000;    // 2) configure for 32-bit mode
     TIMER2_TAMR_R = 0x00000002;   // 3) configure for periodic mode, default down-count settings
-    TIMER2_TAILR_R = period-1;    // 4) reload value, desired delay
-    TIMER2_TAPR_R = 0;            // 5) bus clock resolution
+    TIMER2_TAILR_R = 0xFFFF - 1;    // 4) reload value, desired delay
+    TIMER2_TAPR_R = 0xFF - 1;            // 5) bus clock resolution
     TIMER2_ICR_R = 0x00000001;    // 6) clear timer2A timeout flag
     TIMER2_IMR_R = 0x00000001;    // 7) arm timeout interrupt
-    NVIC_PRI5_R = (NVIC_PRI5_R & 0x00FFFFFF) | 0x80000000; // 8) priority 4
+    NVIC_PRI5_R = (NVIC_PRI5_R & 0x00FFFFFF) | 0x00000000; // 8) priority 4
     // interrupts enabled in the main program after all devices initialized
     // vector number 39, interrupt number 23
-    NVIC_EN0_R = 1<<23;           // 9) enable IRQ 23 in NVIC
+    NVIC_EN0_R |= 1<<23;           // 9) enable IRQ 23 in NVIC
     TIMER2_CTL_R = 0x00000001;    // 10) enable timer2A
 }
 
 void timer2a_handler(){ 
     TIMER2_ICR_R = 0x00000001;   // acknowledge timer2A timeout
-    // LCD_ColorFill(0xFFFF);
-    // render_cubes(BLACK, RED);
-    // render_cubes(WHITE, RED);
-    // draw_player();
-    //render_cubes(WHITE, WHITE);
-    // focal_point.y += dy;
-    // focal_point.x += dx;
+	if(current_count == note_total){
+		current_note = (++current_note) % FAIRY_FOUNTAIN_LENGTH;
+		unsigned int temp = fairyFountain[current_note];
+		note_total = (temp & 0xFFF00000) / 0x01300000;
+		current_count = 0;
+		note = temp & 0xFFFF;
+		
+		//Sound_Play(BILLION / (song[i] & 0x0000FFFF) / 2);
+	}
+	Sound_Play(BILLION / note / 2);
+	current_count++;
 }
 void button_init(){
 	SYSCTL_RCGC2_R |= 0x10;
@@ -113,6 +114,4 @@ void button_pressed(){
 	pe_prev = GPIO_PORTE_DATA_R;
 }
 
-void change_speed(){
-    //stuff
-}
+

@@ -7,10 +7,9 @@
 cube cubes[MAX_CUBES];
 unsigned char num_cubes = 0;
 char dx = 0;
-char dy = 15;
 unsigned char speed = 5;// 1 - 10
 unsigned long tick = 0;
-
+char game_over = 0;
 point focal_point = {(WIDTH - 1) / 2, MIN_INT, (1 - HEIGHT) / 2};
 
 //point player[3] = {{152, 15, -239}, {166, 15, -239}, {159, 30, -239}};
@@ -57,7 +56,7 @@ void clean_cubes(){
     int i = 0, j = 0;
     int n = num_cubes;
     while(i < n) {
-        if (cubes[i].vertices[0].y < focal_point.y + MAX_Y){
+        if (cubes[i].vertices[0].y < focal_point.y + 5 * MAX_Y){
             num_cubes--;
         } else {
             cubes[j++] = cubes[i];
@@ -76,17 +75,17 @@ int equals(point cube1, point cube2){
 //point player[3] = {{focal_point.x - 7, 200 + focal_point.y, -239}, 
 //{focal_point.x + 7, 200 + focal_point.y, -239}, 
 //{focal_point.x, 203 + focal_point.y, -239}};
+
+
 int collision(){
-    for(int i = 0; i < num_cubes; i++){
-        for(int j = 0; j < 4; j++){
-            // positive slope
-            int b0 = focal_point.y + FOCAL_LENGTH - 5 * (focal_point.x + 7);
-            // negative slope
-            int b1 = focal_point.y + FOCAL_LENGTH + 5 * (focal_point.x + 7);
-            if(cubes[i].vertices[j].x * 5 + b0 >= cubes[i].vertices[j].y &&
-                    cubes[i].vertices[j].x * -5 + b1 >= cubes[i].vertices[j].y)
-                return 1;
-        }
+	for(int i = 0; i < num_cubes; i++){
+		if (cubes[i].vertices[0].y < focal_point.y + 6 * MAX_Y){
+			int x0 = cubes[i].vertices[0].x;
+			int x1 = cubes[i].vertices[1].x;
+			if((x0 - focal_point.x >= -35 && x0 <= focal_point.x + 5) || (x1 - focal_point.x <= 35 && x1 >= focal_point.x - 5)){
+				return 1;
+			}
+		}
     }
     return 0;
 }
@@ -95,7 +94,7 @@ void random_wave(void) {
 		point temp;
 		cube this_cube;
 		temp = (point){focal_point.x + (rand()%CUBE_SIZE - 300), focal_point.y + 1200, -239};
-		while (temp.x < 300) {
+		while (temp.x < 300 + focal_point.x) {
 				temp.x += rand()%(CUBE_SIZE*3) + CUBE_SIZE;
 				temp.y += (rand() % 2 * CUBE_SIZE) - CUBE_SIZE;	
 				new_cube(temp, 0, &this_cube);
