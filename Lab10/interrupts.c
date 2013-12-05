@@ -11,6 +11,7 @@ unsigned int current_note = -1; // index
 unsigned int note = 0; // note value
 
 
+
 void Timer0A_Init(unsigned long period){
         SYSCTL_RCGC1_R |= SYSCTL_RCGC1_TIMER0;
         __nop();

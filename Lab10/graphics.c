@@ -244,6 +244,14 @@ void draw_player(){
     LCD_DrawLine(pixel1.x, pixel1.y, pixel3.x, pixel3.y, GREEN);
     LCD_DrawLine(pixel2.x, pixel2.y, pixel3.x, pixel3.y, GREEN);
 }
+/*
+//Draws the player with a integer offset from the center.
+void draw_player(int player_x){ 
+    LCD_DrawLine(152+player_x, 231, 166+player_x, 231, 0); //base
+    LCD_DrawLine(152+player_x, 231, 159+player_x, 224, 0);
+    LCD_DrawLine(166+player_x, 231, 159+player_x, 224, 0);
+}
+ */
 
 void print_int(int i, char x, char y){
     LCD_Goto(x, y);
